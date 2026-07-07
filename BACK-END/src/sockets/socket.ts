@@ -1,4 +1,4 @@
-import { Server } from 'socket.io';
+import { Server, Socket } from 'socket.io';
 import type { Server as HttpServer } from 'http';
 
 let io: Server;
@@ -8,7 +8,7 @@ export function configSocket(server: HttpServer): Server {
     cors: { origin: '*' } // restrinja em produção
   })
 
-   io.on('connection', (socket) => {
+   io.on('connection', (socket : Socket) => {
     console.log('Cliente conectado:', socket.id);
 
     socket.on('disconnect', () => {

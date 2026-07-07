@@ -6,6 +6,7 @@ import cors from 'cors';
 import http from 'http';
 
 
+
 const app = express();
 
 app.use(cors());
@@ -13,15 +14,16 @@ app.use(express.json());
 
 const PORT = process.env.API_PORT || 3000;
 
+const server = http.createServer(app);
 
 app.use((req, res) => {
-    res.status(404).json({
-        message: "Rota não encontrada"
-    });
+  res.status(404).json({ message: "Rota não encontrada" });
 });
 
-app.listen(PORT, () => {
-    console.log(`✅ Back-end conectado ao SQL rodando na porta ${PORT}`);
+configSocket(server);
+
+server.listen(PORT, () => {
+  console.log(`✅ Back-end rodando na porta ${PORT}`);
 });
 
 export default app;
