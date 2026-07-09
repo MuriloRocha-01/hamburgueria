@@ -1,4 +1,4 @@
-interface pratos{
+export interface Pratos{
     cd_prato:number;
     cd_categoria:number;
     nm_prato:string;

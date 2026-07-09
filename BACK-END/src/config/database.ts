@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const pool = new Pool({
+const poolPromise = new Pool({
   host: process.env.DB_HOST,
   port: Number(process.env.DB_PORT),
   database: process.env.DB_NAME,
@@ -14,7 +14,7 @@ const pool = new Pool({
   idleTimeoutMillis: 30000,
 });
 
-pool.connect()
+poolPromise.connect()
   .then((client) => {
     console.log('✅ Conectado ao Postgres (Supabase)');
     client.release(); // devolve a conexão pro pool, não fecha o pool inteiro
@@ -23,4 +23,4 @@ pool.connect()
     console.error('❌ Falha na conexão com o Postgres:', err);
   });
 
-export { pool };
+export { poolPromise };
