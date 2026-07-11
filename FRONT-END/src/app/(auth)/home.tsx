@@ -1,10 +1,12 @@
 import * as React from "react";
 import { View, Dimensions, Text } from "react-native";
 import Carousel from "react-native-reanimated-carousel";
+import { homeHook } from "@/hooks/home/home.hook";
 
 const { width: screenWidth } = Dimensions.get("window");
 
-export default function ListaCubinhosRetos() {
+export default function ListaCubinhosRetos() {  
+  const { getAllPratos } = homeHook();
   const dados = [
     { id: "1", cor: "#FF5733" },
     { id: "2", cor: "#33FF57" },
@@ -16,6 +18,9 @@ export default function ListaCubinhosRetos() {
   return (
     <View className="flex-1 justify-center items-center bg-gray-100">
       
+      {getAllPratos.map() =>{
+        
+      }}
       <Text>Categorias</Text>
       <Carousel
         // Loop ativado para o scroll infinito funcionar
