@@ -1,12 +1,31 @@
 import * as React from "react";
 import { View, Dimensions, Text } from "react-native";
 import Carousel from "react-native-reanimated-carousel";
-import { homeHook } from "@/hooks/home/home.hook";
+import { useHome } from "@/src/home/usehome.hook";
+import { useEffect, useState } from "react";
 
 const { width: screenWidth } = Dimensions.get("window");
 
 export default function ListaCubinhosRetos() {  
-  const { getAllPratos } = homeHook();
+  const { carregarPratos } = useHome();
+  const [pratos, setPratos] = useState([]);
+  
+  useEffect(()=>{
+    async function buscarDados(){
+    try {
+      
+      const dados = await carregarPratos();
+      setPratos(dados)
+    } catch (error) {
+      console.log(error)      
+    }finally{
+     
+    }
+  }
+    buscarDados();
+  })
+
+  
   const dados = [
     { id: "1", cor: "#FF5733" },
     { id: "2", cor: "#33FF57" },
@@ -17,10 +36,13 @@ export default function ListaCubinhosRetos() {
 
   return (
     <View className="flex-1 justify-center items-center bg-gray-100">
-      
-      {getAllPratos.map() =>{
-        
-      }}
+      {pratos.map((item:any)=>{
+        return(
+          <>
+          <Text>
+            {item.ds_descricao}</Text></>
+        )
+      })}
       <Text>Categorias</Text>
       <Carousel
         // Loop ativado para o scroll infinito funcionar

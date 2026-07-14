@@ -1,9 +1,9 @@
-import { api } from "../../config/api";
+import { api } from "../config/api";
 
 export const usePratos = () => {
     const getAllPratos = async () => {
         try {
-            const response = api.get("/pratos");
+            const response = await api.get("/pratos");
             return response;
         }
         catch (error) {
