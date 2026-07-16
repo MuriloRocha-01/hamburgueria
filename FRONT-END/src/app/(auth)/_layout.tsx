@@ -1,10 +1,11 @@
 import { Stack } from "expo-router";
 import React from "react";
 
-export default function RootLayout() {
+export default function AuthLayout() {
   return (
-    <Stack>
-      <Stack.Screen name="home" options={{headerTitle:"Home"}} />
+    <Stack screenOptions={{ headerShown: false }}>
+      {/* Direciona para o grupo de abas */}
+      <Stack.Screen name="(tabs)" /> 
     </Stack>
   );
 }

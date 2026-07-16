@@ -5,5 +5,5 @@ export interface PratosProps{
     vl_preco:number;
     ic_disponivel:boolean;
     ds_pratos:string;
-    cd_imagem_url:string;
+    ds_imagem_url:string;
 }

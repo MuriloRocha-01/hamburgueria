@@ -30,7 +30,7 @@ export default function Login() {
       if (setActive) {
         await setActive({ session: sigInUser.createdSessionId });
       }
-      router.push("/home");
+      router.push("/(auth)/(tabs)/home");
     } catch (error: any) {
       const mensagemErro =
         error.errors?.[0]?.longMessage || "Ocorreu um erro ao fazer login.";

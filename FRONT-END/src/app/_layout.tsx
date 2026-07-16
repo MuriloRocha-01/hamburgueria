@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import "./../../global.css";
 import { ClerkProvider, useAuth } from "@clerk/clerk-expo";
 import * as SecureStore from "expo-secure-store"
+import PratosProvider from "../context/pratosProvider";
 
 
 const publichKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!;
@@ -46,8 +47,10 @@ const InitialLayout = () => {
 
 export default function RootLayout() {
   return (
+    <PratosProvider>
     <ClerkProvider publishableKey={publichKey} tokenCache={tokenCache}>
       <InitialLayout/>
     </ClerkProvider>
+    </PratosProvider>
   );
 }
