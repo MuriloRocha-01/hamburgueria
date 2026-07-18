@@ -8,6 +8,8 @@ module.exports = {
         // Mapeia a classe utilitária para o nome carregado pelo Expo
         'roboto-regular': ['Roboto_400Regular'],
         'roboto-bold': ['Roboto_700Bold'],
+        spicy: ['SpicyRice_400Regular'],
+        
       },
     },
   },

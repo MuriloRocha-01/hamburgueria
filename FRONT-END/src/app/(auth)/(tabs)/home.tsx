@@ -3,8 +3,9 @@ import { View, Text, Image, ScrollView, Pressable } from "react-native";
 import { useEffect, useState, useContext } from "react";
 import { PratosProps } from "@/src/interface/pratosInterface";
 import { PratosContext } from "@/src/context/pratosContext";
-import { usePratos } from "@/src/hooks/usePratos.hook";
+import { usePratos } from "@/src/hooks/home_hooks/usePratos.hook";
 import CarregamentoSimples from "../../../components/spinners/index";
+import { useLocalSearchParams, router } from "expo-router";
 
 export default function ListaCubinhosRetos() {
   const { getAllPratos } = usePratos();
@@ -12,6 +13,9 @@ export default function ListaCubinhosRetos() {
   const [pratos, setPratos] = useState<PratosProps[]>([]);
   const [loading, setLoading] = useState(false);
 
+  function addCard() {}
+
+  
   useEffect(() => {
     async function buscarDados() {
       setLoading(true);
@@ -38,19 +42,32 @@ export default function ListaCubinhosRetos() {
               <View
                 key={item.cd_prato}
                 className="p-[2%] border bg-white/20 rounded-[1.2rem] border-white w-[42%] h-120 mt-10 gap-3 items-center justify-center "
-              > <View className=" w-full h-40 lg:h-80">
-                <Image
-                  className="w-full h-full rounded-lg"
-                  source={{ uri: item.ds_imagem_url }}
-                ></Image>
-                </View>
-                <Text className="w-full text-white text-[1.3rem] text-start">
-                  {item.nm_prato}
-                </Text>
-                <Text className="ml-1 text-1 text-white text-start w-full">
-                  {item.vl_preco}
-                </Text>
-                <Pressable className="py-2 w-full flex items-center text-center justify-center rounded-[1.2rem] bg-white">
+              >
+                <Pressable
+                className="w-full" 
+                onPress={() => router.push({
+                  pathname:'/(auth)/(tabs)/product/[cd_prato]',
+                  params:{
+                    id:item.cd_prato
+                  },
+                })} >
+                  <View className="w-full h-40 lg:h-80">
+                    <Image
+                      className="w-full h-full rounded-lg"
+                      source={{ uri: item.ds_imagem_url }}
+                    ></Image>
+                  </View>
+                  <Text className="text-white text-[1.3rem] md:text-[1.4rem] font-bold text-start">
+                    {item.nm_prato}
+                  </Text>
+                  <Text className="text-white text-start text-">
+                    {item.vl_preco} R$
+                  </Text>
+                </Pressable>
+                <Pressable
+                  className="py-2 w-full font-bold flex items-center text-center justify-center rounded-[1.2rem] bg-white"
+                  onPress={addCard}
+                >
                   Adicionar ao carrinho
                 </Pressable>
               </View>
