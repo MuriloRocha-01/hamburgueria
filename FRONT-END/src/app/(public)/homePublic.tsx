@@ -57,7 +57,7 @@ export default function HomePublic() {
       
       <TouchableOpacity 
         className="px-8 bg-[#E5160B] rounded-[1.2rem] py-5 w-full max-w-xs shadow-md"  
-        onPress={() => router.push('/login')}
+        onPress={() => router.push('/(auth)/(tabs)/home')}
       >
         <Text className="md:text-[1rem] text-[1.2rem] font-bold text-white text-center">
           Faça o seu pedido agora

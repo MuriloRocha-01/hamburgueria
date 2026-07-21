@@ -1,10 +1,6 @@
 import React from "react";
-import { ActivityIndicator, View } from "react-native";
+import HomePublic from "./(public)/homePublic"; // Ajuste o caminho até o seu arquivo HomePublic
 
 export default function Index() {
-  return (
-    <View className="flex-1 items-center justify-center">
-      <ActivityIndicator size={40} ></ActivityIndicator>
-    </View>
-  );
+  return <HomePublic />;
 }

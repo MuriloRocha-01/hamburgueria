@@ -8,7 +8,7 @@ export const usePratos = () => {
         }
         catch (error) {
             console.error("Erro ao buscar pratos:", error);
-            return [];
+            throw error;
         }
     }
     return { getAllPratos }

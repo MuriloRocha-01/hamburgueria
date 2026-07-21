@@ -7,7 +7,7 @@ console.log("Tentando conectar em:", baseURL);
 
 export const api = axios.create({
     baseURL:baseURL,
-    timeout:1000,
+    timeout:10000,
     headers: {
         'Content-Type': 'application/json',
     }
