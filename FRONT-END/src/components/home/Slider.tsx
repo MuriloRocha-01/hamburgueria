@@ -16,47 +16,58 @@ export default function Slider({ pratos, addCard }: SliderProps) {
         horizontal
         showsHorizontalScrollIndicator={false}
         keyExtractor={(item) => String(item.cd_prato)}
-        contentContainerStyle={{ paddingHorizontal: 24 }} // Espaçamento nas pontas
+        contentContainerStyle={{ paddingHorizontal: 24 }}
         renderItem={({ item }) => (
-          <View className="p-3 border bg-white/20 rounded-[1.2rem] border-white w-64 mr-4 gap-3 items-center justify-between">
+          <View className="border border-white/50 bg-white/20 rounded-[1.3rem] w-64 mr-4 flex-col justify-between">
             <Pressable
-              className="w-full"
+              className="w-full active:opacity-70"
               onPress={() =>
                 router.push({
-                  pathname: "/(auth)/(tabs)/product/[cd_prato]",
-                  params: {
-                    id: item.cd_prato,
-                  },
+                  pathname: "/product/[cd_prato]",
+                  params: { cd_prato: item.cd_prato, id: item.cd_prato },
                 })
               }
             >
+
               <View className="w-full h-40">
                 <Image
-                  className="w-full h-full rounded-lg"
+                  className="w-full rounded-t-[1.3rem] h-full"
                   source={{ uri: item.ds_imagem_url }}
                   resizeMode="cover"
                 />
               </View>
 
-              <Text 
-                className="text-white text-[1.2rem] font-bold mt-2" 
-              >
-                {item.nm_prato}
-              </Text>
+              {/* Container com Padding apenas para os Textos */}
+              <View className="px-3 pt-2">
+                <Text className="text-white text-[1.2rem] font-bold">
+                  {item.nm_prato}
+                </Text>
 
-              <Text className="text-white/80 font-medium">
+                <Text
+                  numberOfLines={2}
+                  ellipsizeMode="tail"
+                  className="text-white/80 text-sm mt-1 mb-2"
+                >
+                  {item.ds_pratos}
+                </Text>
+              </View>
+            </Pressable>
+
+            {/* Bloco Inferior com Padding (Preço + Botão) */}
+            <View className="w-full flex-row items-center justify-between mt-auto p-3 pt-2 border-t border-white/10">
+              <Text className="flex-1 text-white text-[1.1rem] font-semibold">
                 R$ {item.vl_preco}
               </Text>
-            </Pressable>
 
-            <Pressable
-              className="py-2.5 w-full rounded-[1.2rem] bg-white active:bg-gray-200 items-center justify-center"
-              onPress={() => addCard(item)}
-            >
-              <Text className="text-[#151417] font-bold text-center">
-                Adicionar ao carrinho
-              </Text>
-            </Pressable>
+              <Pressable
+                className="py-2.5 px-3 rounded-[0.8rem] bg-white/80 active:bg-white items-center justify-center"
+                onPress={() => addCard(item)}
+              >
+                <Text className="text-[#151417] font-bold text-center">
+                  Adicionar
+                </Text>
+              </Pressable>
+            </View>
           </View>
         )}
       />

@@ -4,9 +4,10 @@ import { useEffect, useState, useContext } from "react";
 import { PratosProps } from "@/src/interface/pratosInterface";
 import { PratosContext } from "@/src/context/pratosContext";
 import { usePratos } from "@/src/hooks/home_hooks/usePratos.hook";
-import CarregamentoSimples from "../../../components/spinners/index";
-import Slider from "../../../components/home/Slider"; // Altere para o caminho do seu arquivo
+import CarregamentoSimples from "../../components/spinners/index";
+import Slider from "../../components/home/Slider"; // Altere para o caminho do seu arquivo
 import Categoria from '@/src/components/home/Categoria';
+import SearchBar from "@/src/components/home/SearchBar";
 
 export default function ListaCubinhosRetos() {
   const { getAllPratos } = usePratos();
@@ -40,8 +41,10 @@ export default function ListaCubinhosRetos() {
           <CarregamentoSimples />
         ) : (
           <View>
-          <Slider pratos={pratos} addCard={addCard} />
+          <SearchBar/>
           <Categoria />
+          <Slider pratos={pratos} addCard={addCard} />
+          
           </View>
         )}
       </View>
