@@ -1,12 +1,19 @@
+<<<<<<< HEAD
 import React, { useState, type ReactNode } from 'react';
 import { PratosContext } from '../context/pratosContext';
 import { PratosProps } from '../interface/pratosInterface';
 import { CartItemProps } from '../interface/pratoCardInterface';
+=======
+import React, { useCallback, useState, type ReactNode } from 'react';
+import { PratosContext } from '../context/pratosContext';
+import { PratosProps } from '../interface/pratosInterface';
+>>>>>>> aaa12611d36981f92415a0ebb7717e0aa2cc9c97
 
 interface PratosProviderProps {
   children: ReactNode;
 }
 
+<<<<<<< HEAD
 function PratosProvider({ children }: PratosProviderProps) {
   const [cart, setCart] = useState<CartItemProps[]>([]);
 
@@ -63,6 +70,18 @@ function PratosProvider({ children }: PratosProviderProps) {
 
   return (
     <PratosContext.Provider value={{ removeItemCard, addCard, cart, cartAmount: cart.length }}>
+=======
+export function PratosProvider({ children }: PratosProviderProps) {
+  const [pratos, setPratos] = useState<PratosProps[]>([]);
+
+  function savePratos(item: PratosProps){
+    setPratos((prevPratos) => [...prevPratos, item]);
+    
+  }
+
+  return (
+    <PratosContext.Provider value={{ savePratos, pratos }}>
+>>>>>>> aaa12611d36981f92415a0ebb7717e0aa2cc9c97
       {children}
     </PratosContext.Provider>
   );

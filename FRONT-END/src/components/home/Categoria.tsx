@@ -51,8 +51,12 @@ export default function CategoriasSlider() {
   };
 
   return (
+<<<<<<< HEAD
     <View className="w-full">
       <Text className="text-white font-bold text-2xl pl-9 lg:mb-4 mb-3">Categorias</Text>
+=======
+    <View className="w-full ">
+>>>>>>> aaa12611d36981f92415a0ebb7717e0aa2cc9c97
       <FlatList
         data={LISTA_CATEGORIAS}
         horizontal

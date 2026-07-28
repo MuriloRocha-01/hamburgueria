@@ -2,6 +2,7 @@ import * as React from "react";
 import { View, Text, Image, FlatList, Pressable } from "react-native";
 import { PratosProps } from "@/src/interface/pratosInterface";
 import { router } from "expo-router";
+<<<<<<< HEAD
 import { useContext } from "react";
 import { PratosContext } from "@/src/context/pratosContext";
 
@@ -18,6 +19,17 @@ export default function Slider({ pratos }: SliderProps) {
   return (
     <View className="w-full ">
       <Text className="text-white mb-3 px-9 text-2xl font-bold">Principais Produtos</Text>
+=======
+
+interface SliderProps {
+  pratos: PratosProps[];
+  addCard: (item: PratosProps) => void;
+}
+
+export default function Slider({ pratos, addCard }: SliderProps) {
+  return (
+    <View className="w-full my-4">
+>>>>>>> aaa12611d36981f92415a0ebb7717e0aa2cc9c97
       <FlatList
         data={pratos}
         horizontal
@@ -25,7 +37,11 @@ export default function Slider({ pratos }: SliderProps) {
         keyExtractor={(item) => String(item.cd_prato)}
         contentContainerStyle={{ paddingHorizontal: 24 }}
         renderItem={({ item }) => (
+<<<<<<< HEAD
           <View className="border border-white/40 bg-white/20 rounded-[1.3rem] w-64 mr-4 flex-col justify-between">
+=======
+          <View className="border border-white/50 bg-white/20 rounded-[1.3rem] w-64 mr-4 flex-col justify-between">
+>>>>>>> aaa12611d36981f92415a0ebb7717e0aa2cc9c97
             <Pressable
               className="w-full active:opacity-70"
               onPress={() =>
@@ -36,7 +52,11 @@ export default function Slider({ pratos }: SliderProps) {
               }
             >
 
+<<<<<<< HEAD
               <View className="w-full h-60">
+=======
+              <View className="w-full h-40">
+>>>>>>> aaa12611d36981f92415a0ebb7717e0aa2cc9c97
                 <Image
                   className="w-full rounded-t-[1.3rem] h-full"
                   source={{ uri: item.ds_imagem_url }}
@@ -68,7 +88,11 @@ export default function Slider({ pratos }: SliderProps) {
 
               <Pressable
                 className="py-2.5 px-3 rounded-[0.8rem] bg-white/80 active:bg-white items-center justify-center"
+<<<<<<< HEAD
                 onPress={() => addItemCard(item)}
+=======
+                onPress={() => addCard(item)}
+>>>>>>> aaa12611d36981f92415a0ebb7717e0aa2cc9c97
               >
                 <Text className="text-[#151417] font-bold text-center">
                   Adicionar
