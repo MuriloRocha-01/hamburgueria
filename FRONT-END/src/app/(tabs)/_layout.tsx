@@ -1,5 +1,4 @@
 import { Drawer } from "expo-router/drawer";
-<<<<<<< HEAD
 import { useRouter } from "expo-router";
 import { TouchableOpacity, Text, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
@@ -10,26 +9,16 @@ export default function Layout() {
   const router = useRouter();
   const { cartAmount } = useContext(PratosContext);
 
-=======
-import React from "react";
-
-export default function Layout() {
->>>>>>> aaa12611d36981f92415a0ebb7717e0aa2cc9c97
   return (
     <Drawer
       screenOptions={{
         headerShown: true,
         title: "Braza Burguer",
-<<<<<<< HEAD
 
-=======
-        
->>>>>>> aaa12611d36981f92415a0ebb7717e0aa2cc9c97
         drawerStyle: {
           backgroundColor: "#1e1e1e",
         },
 
-<<<<<<< HEAD
         drawerActiveTintColor: "#ffffff",
         drawerInactiveTintColor: "#888888",
 
@@ -38,7 +27,6 @@ export default function Layout() {
         },
         headerTintColor: "#ffffff",
 
-        // Ícone no canto superior direito do cabeçalho
         headerRight: () => (
           <TouchableOpacity
             onPress={() => router.push("/(tabs)/card")}
@@ -68,20 +56,16 @@ export default function Layout() {
           ),
         }}
       />
-=======
-        drawerActiveTintColor: "#ffffff", 
-        drawerInactiveTintColor: "#888888", 
-        
-        headerStyle: {
-          backgroundColor: "#1e1e1e",
-        },
-        headerTintColor: "#ffffff", 
-      }}
-    >
-      <Drawer.Screen name="home" options={{ drawerLabel: "Início" }} />
-      
-      <Drawer.Screen name="search" options={{ drawerLabel: "Buscar" }} />
->>>>>>> aaa12611d36981f92415a0ebb7717e0aa2cc9c97
+
+      <Drawer.Screen
+        name="search"
+        options={{
+          drawerLabel: "Buscar",
+          drawerIcon: ({ color, size }) => (
+            <Ionicons name="search-outline" size={size} color={color} />
+          ),
+        }}
+      />
     </Drawer>
   );
 }

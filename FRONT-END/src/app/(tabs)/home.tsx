@@ -1,39 +1,17 @@
 import * as React from "react";
-<<<<<<< HEAD
-import { View} from "react-native";
+import { View, ScrollView, Text } from "react-native";
 import { useEffect, useState} from "react";
 import { PratosProps } from "@/src/interface/pratosInterface";
-=======
-import { View, ScrollView } from "react-native";
-import { useEffect, useState, useContext } from "react";
-import { PratosProps } from "@/src/interface/pratosInterface";
-import { PratosContext } from "@/src/context/pratosContext";
->>>>>>> aaa12611d36981f92415a0ebb7717e0aa2cc9c97
 import { usePratos } from "@/src/hooks/home_hooks/usePratos.hook";
 import CarregamentoSimples from "../../components/spinners/index";
-import Slider from "../../components/home/Slider"; // Altere para o caminho do seu arquivo
-import Categoria from '@/src/components/home/Categoria';
+import Slider from "../../components/home/Slider";
+import Categoria from "@/src/components/home/Categoria";
 import SearchBar from "@/src/components/home/SearchBar";
-<<<<<<< HEAD
-import Destaque from "@/src/components/home/Destaque";
 
 export default function ListaCubinhosRetos() {
   const { getAllPratos } = usePratos();
   const [pratos, setPratos] = useState<PratosProps[]>([]);
   const [loading, setLoading] = useState(false);
-  
-=======
-
-export default function ListaCubinhosRetos() {
-  const { getAllPratos } = usePratos();
-  const { savePratos } = useContext(PratosContext);
-  const [pratos, setPratos] = useState<PratosProps[]>([]);
-  const [loading, setLoading] = useState(false);
-
-  function addCard(prato: PratosProps) {
-    // Sua lógica de adicionar ao carrinho
-  }
->>>>>>> aaa12611d36981f92415a0ebb7717e0aa2cc9c97
 
   useEffect(() => {
     async function buscarDados() {
@@ -48,41 +26,28 @@ export default function ListaCubinhosRetos() {
       }
     }
     buscarDados();
-<<<<<<< HEAD
-  },[]);
-
-  return (
-    <View className="bg-[#151417] flex-1">
-=======
   }, []);
 
+
   return (
-    <ScrollView className="bg-[#151417] flex-1">
->>>>>>> aaa12611d36981f92415a0ebb7717e0aa2cc9c97
-      <View className="w-full">
+    <ScrollView className="bg-[#151417] ">
+      <View className="flex-1 pb-6">
         {loading ? (
           <CarregamentoSimples />
         ) : (
-<<<<<<< HEAD
           <View className="gap-3">
-          <SearchBar/> 
-          <Categoria />
-          <Slider pratos={pratos} />
-          <Destaque pratos={pratos}/>
-          </View>
-        )}
-      </View>
-    </View>
-=======
-          <View>
-          <SearchBar/>
-          <Categoria />
-          <Slider pratos={pratos} addCard={addCard} />
-          
+            <SearchBar />
+            <Categoria />
+            <Slider titulo="Principais Produtos" pratos={pratos} />
+            <Slider titulo="Combos Promocionais" pratos={pratos.filter(item => Number(item.cd_categoria) === 1)}  />
+            <Slider titulo="Hambúrgueres Artesanais" pratos={pratos.filter(item => Number(item.cd_categoria) === 2)}  />
+            <Slider titulo="Smash Burgers" pratos={pratos.filter(item => Number(item.cd_categoria) === 3)}  />
+            <Slider titulo="Acompanhamentos" pratos={pratos.filter(item => Number(item.cd_categoria) === 4)}  />
+            <Slider titulo="Bebidas" pratos={pratos.filter(item => Number(item.cd_categoria) === 5)}  />
+            <Slider titulo="Sobremesas" pratos={pratos.filter(item => Number(item.cd_categoria) === 6)}  />      
           </View>
         )}
       </View>
     </ScrollView>
->>>>>>> aaa12611d36981f92415a0ebb7717e0aa2cc9c97
   );
 }

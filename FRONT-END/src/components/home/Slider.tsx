@@ -2,34 +2,28 @@ import * as React from "react";
 import { View, Text, Image, FlatList, Pressable } from "react-native";
 import { PratosProps } from "@/src/interface/pratosInterface";
 import { router } from "expo-router";
-<<<<<<< HEAD
 import { useContext } from "react";
 import { PratosContext } from "@/src/context/pratosContext";
 
 interface SliderProps {
+  titulo:string;
   pratos: PratosProps[];
 }
 
-export default function Slider({ pratos }: SliderProps) {
-  const { addCard } = useContext(PratosContext);
+export default function Slider({ titulo, pratos }: SliderProps) {
+  const { addCard }= useContext(PratosContext);
 
-  function addItemCard(pratos:PratosProps){
-    addCard(pratos);
+  function handleAddCard(item : PratosProps){
+    addCard(item);
   }
-  return (
-    <View className="w-full ">
-      <Text className="text-white mb-3 px-9 text-2xl font-bold">Principais Produtos</Text>
-=======
 
-interface SliderProps {
-  pratos: PratosProps[];
-  addCard: (item: PratosProps) => void;
-}
 
-export default function Slider({ pratos, addCard }: SliderProps) {
   return (
     <View className="w-full my-4">
->>>>>>> aaa12611d36981f92415a0ebb7717e0aa2cc9c97
+      <Text className="text-white mb-3 px-9 text-2xl font-bold">
+        {titulo}
+      </Text>
+
       <FlatList
         data={pratos}
         horizontal
@@ -37,11 +31,7 @@ export default function Slider({ pratos, addCard }: SliderProps) {
         keyExtractor={(item) => String(item.cd_prato)}
         contentContainerStyle={{ paddingHorizontal: 24 }}
         renderItem={({ item }) => (
-<<<<<<< HEAD
           <View className="border border-white/40 bg-white/20 rounded-[1.3rem] w-64 mr-4 flex-col justify-between">
-=======
-          <View className="border border-white/50 bg-white/20 rounded-[1.3rem] w-64 mr-4 flex-col justify-between">
->>>>>>> aaa12611d36981f92415a0ebb7717e0aa2cc9c97
             <Pressable
               className="w-full active:opacity-70"
               onPress={() =>
@@ -51,12 +41,7 @@ export default function Slider({ pratos, addCard }: SliderProps) {
                 })
               }
             >
-
-<<<<<<< HEAD
-              <View className="w-full h-60">
-=======
-              <View className="w-full h-40">
->>>>>>> aaa12611d36981f92415a0ebb7717e0aa2cc9c97
+              <View className="w-full h-44">
                 <Image
                   className="w-full rounded-t-[1.3rem] h-full"
                   source={{ uri: item.ds_imagem_url }}
@@ -64,7 +49,7 @@ export default function Slider({ pratos, addCard }: SliderProps) {
                 />
               </View>
 
-              {/* Container com Padding apenas para os Textos */}
+              {/* Container com Padding para Nome e Descrição */}
               <View className="px-3 pt-2">
                 <Text className="text-white text-[1.2rem] font-bold">
                   {item.nm_prato}
@@ -80,7 +65,7 @@ export default function Slider({ pratos, addCard }: SliderProps) {
               </View>
             </Pressable>
 
-            {/* Bloco Inferior com Padding (Preço + Botão) */}
+            {/* Bloco Inferior (Preço + Botão Adicionar) */}
             <View className="w-full flex-row items-center justify-between mt-auto p-3 pt-2 border-t border-white/10">
               <Text className="flex-1 text-white text-[1.1rem] font-semibold">
                 R$ {item.vl_preco}
@@ -88,11 +73,7 @@ export default function Slider({ pratos, addCard }: SliderProps) {
 
               <Pressable
                 className="py-2.5 px-3 rounded-[0.8rem] bg-white/80 active:bg-white items-center justify-center"
-<<<<<<< HEAD
-                onPress={() => addItemCard(item)}
-=======
-                onPress={() => addCard(item)}
->>>>>>> aaa12611d36981f92415a0ebb7717e0aa2cc9c97
+                onPress={() => handleAddCard(item)}
               >
                 <Text className="text-[#151417] font-bold text-center">
                   Adicionar

@@ -6,8 +6,7 @@ import { Ionicons } from "@expo/vector-icons";
 function Card() {
   const { cart, addCard, removeItemCard } = useContext(PratosContext);
 
-  // Soma o total de todos os pratos no carrinho
-  const totalCarrinho = cart.reduce((acc, item) => acc + item.total, 0);
+  const totalCarrinho = cart.reduce((acc, item) => acc + Number(item.total), 0);
 
   return (
     <View className="flex-1 bg-[#151417] p-4">

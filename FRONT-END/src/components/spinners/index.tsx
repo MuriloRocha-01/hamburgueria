@@ -1,16 +1,13 @@
 import React from 'react';
-import { View, ActivityIndicator, StyleSheet } from 'react-native';
+import { View, ActivityIndicator } from 'react-native';
 
-const CarregamentoSimples = () => {
+function CarregamentoSimples (){
   return (
-    <View style={styles.container}>
-        <ActivityIndicator size="large" color="#ff0015" />
+    <View className='flex-1 flex items-center justify-center'>
+        <ActivityIndicator size="large" color="#ff0015" className=''/>
     </View>
   );
 };
 
-const styles = StyleSheet.create({
-  container: { flex: 1, justifyContent: 'center', alignItems: 'center' },
-});
 
 export default CarregamentoSimples;

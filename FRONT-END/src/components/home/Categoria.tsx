@@ -14,9 +14,9 @@ export interface CategoriaProps {
 // 2. Lista com os ícones da hamburgueria
 const LISTA_CATEGORIAS: CategoriaProps[] = [
   { id: "1", nome: "Combos", iconName: "flame-outline", iconFamily: "Ionicons" },
-  { id: "2", nome: "Hamburgúrgues Artesanais", iconName: "french-fries", iconFamily: "MaterialCommunityIcons" },
+  { id: "2", nome: "Hambúrgueres Artesanais", iconName: "french-fries", iconFamily: "MaterialCommunityIcons" },
   { id: "3", nome: "Smash Burguers", iconName: "hamburger", iconFamily: "FontAwesome5" },
-  { id: "4", nome: "Acompanhamentos", iconName: "flame-outline", iconFamily: "Ionicons"},
+  { id: "4", nome: "Acompanhamentos", iconName: "flame-outline", iconFamily: "Ionicons" },
   { id: "5", nome: "Bebidas", iconName: "bottle-soda", iconFamily: "MaterialCommunityIcons" },
   { id: "6", nome: "Sobremesas", iconName: "ice-cream", iconFamily: "MaterialCommunityIcons" },
 ];
@@ -51,12 +51,11 @@ export default function CategoriasSlider() {
   };
 
   return (
-<<<<<<< HEAD
     <View className="w-full">
-      <Text className="text-white font-bold text-2xl pl-9 lg:mb-4 mb-3">Categorias</Text>
-=======
-    <View className="w-full ">
->>>>>>> aaa12611d36981f92415a0ebb7717e0aa2cc9c97
+      <Text className="text-white font-bold text-2xl pl-9 lg:mb-4 mb-3">
+        Categorias
+      </Text>
+
       <FlatList
         data={LISTA_CATEGORIAS}
         horizontal
