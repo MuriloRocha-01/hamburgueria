@@ -4,7 +4,7 @@ import { useLocalSearchParams } from "expo-router";
 import { PratosProps } from "@/src/interface/pratosInterface";
 import { usePratos } from "@/src/hooks/home_hooks/usePratos.hook";
 import CarregamentoSimples from "@/src/components/spinners";
-import { PratosContext } from "@/src/context/pratosContext";
+import { PratosContext } from "@/src/context/pratosContext/pratosContext";
 import { Ionicons } from "@expo/vector-icons";
 
 function Product() {
@@ -14,15 +14,12 @@ function Product() {
   const id = params.id as string;
 
   const { getAllPratos } = usePratos();
-  const { cart, removeItemCard, addCard } = useContext(PratosContext);
+  const { cart, removeItemCart, addCart } = useContext(PratosContext);
 
   // Verifica se o prato atual já está no carrinho
   const itemNoCarrinho = cart.find((item) => item.cd_prato === prato?.cd_prato);
 
-  function addItemCard(pratos: PratosProps) {
-    addCard(pratos);
-  }
-
+  
   useEffect(() => {
     async function getPrato() {
       setLoading(true);
@@ -69,9 +66,9 @@ function Product() {
     <ScrollView className="bg-[#151417] flex-1">
       <Image
         source={{
-          uri: prato.ds_imagem_url || "https://via.placeholder.com/400x300",
+          uri: prato.ds_imagem_url ,
         }}
-        className="lg:w-90 w-full h-72 object-cover rounded-xl"
+        className="flex items-center justify-center w-full h-80 object-cover rounded-b-lg"
       />
 
       <View className="p-3 gap-4">
@@ -93,7 +90,7 @@ function Product() {
             <View className="flex-row items-center justify-between bg-red-500 py-2 px-4 rounded-xl shadow-lg">
               <TouchableOpacity
                 activeOpacity={0.7}
-                onPress={() => removeItemCard(itemNoCarrinho)}
+                onPress={() => removeItemCart(itemNoCarrinho)}
                 className="w-10 h-10 bg-white/20 rounded-lg items-center justify-center"
               >
                 <Ionicons name="remove" size={20} color="#FFFFFF" />
@@ -107,7 +104,7 @@ function Product() {
 
               <TouchableOpacity
                 activeOpacity={0.7}
-                onPress={() => addCard(prato)}
+                onPress={() => addCart(prato)}
                 className="w-10 h-10 bg-white/20 rounded-lg items-center justify-center"
               >
                 <Ionicons name="add" size={20} color="#FFFFFF" />
@@ -117,7 +114,7 @@ function Product() {
             <TouchableOpacity
               activeOpacity={0.8}
               className="bg-red-500 py-4 rounded-xl items-center shadow-lg"
-              onPress={() => addItemCard(prato)}
+              onPress={() => addCart(prato)}
             >
               <Text className="text-white font-bold text-base">
                 Adicionar ao Carrinho

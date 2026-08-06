@@ -3,7 +3,7 @@ import { useRouter } from "expo-router";
 import { TouchableOpacity, Text, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import React, { useContext } from "react";
-import { PratosContext } from "@/src/context/pratosContext";
+import { PratosContext } from "@/src/context/pratosContext/pratosContext";
 
 export default function Layout() {
   const router = useRouter();
@@ -11,9 +11,9 @@ export default function Layout() {
 
   return (
     <Drawer
-      screenOptions={{
+      screenOptions={{  
         headerShown: true,
-        title: "Braza Burguer",
+        // Removido o title global daqui para evitar herança indesejada em todas as páginas
 
         drawerStyle: {
           backgroundColor: "#1e1e1e",
@@ -51,21 +51,18 @@ export default function Layout() {
         name="home"
         options={{
           drawerLabel: "Início",
+          // Definindo o título personalizado com a fonte font-spicy apenas para a Home
+          headerTitle: () => (
+            <Text className="text-white text-xl font-spicy tracking-wider">
+              Braza Burguer
+            </Text>
+          ),
           drawerIcon: ({ color, size }) => (
             <Ionicons name="home-outline" size={size} color={color} />
           ),
         }}
       />
 
-      <Drawer.Screen
-        name="search"
-        options={{
-          drawerLabel: "Buscar",
-          drawerIcon: ({ color, size }) => (
-            <Ionicons name="search-outline" size={size} color={color} />
-          ),
-        }}
-      />
     </Drawer>
   );
 }

@@ -11,7 +11,7 @@ const poolPromise = new Pool({
   password: process.env.DB_PASSWORD,
   ssl: { rejectUnauthorized: false },
   max: 10,
-  idleTimeoutMillis: 30000,
+  idleTimeoutMillis: 2000,
 });
 
 poolPromise.connect()

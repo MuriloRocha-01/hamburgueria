@@ -1,6 +1,6 @@
 import React, { useState, type ReactNode } from 'react';
-import { PratosProps } from '../interface/pratosInterface';
-import { CartItemProps } from '../interface/pratoCardInterface';
+import { PratosProps } from '../../interface/pratosInterface';
+import { CartItemProps } from '../../interface/pratoCardInterface';
 import { PratosContext } from './pratosContext'; // Garanta que o caminho do context está correto
 
 interface PratosProviderProps {
@@ -10,9 +10,13 @@ interface PratosProviderProps {
 function PratosProvider({ children }: PratosProviderProps) {
   const [cart, setCart] = useState<CartItemProps[]>([]);
   
+  function clearCart(){
 
-  function addCard(newItem: PratosProps) {
-    const indexItem = cart.findIndex(item => item.cd_prato === newItem.cd_prato);
+  }
+
+
+  function addCart(item: PratosProps) {
+    const indexItem = cart.findIndex(item => item.cd_prato === item.cd_prato);
 
     if (indexItem !== -1) {
       const newCart = [...cart];
@@ -29,16 +33,16 @@ function PratosProvider({ children }: PratosProviderProps) {
     }
 
     const data: CartItemProps = {
-      ...newItem,
+      ...item,
       amount: 1,
-      total: newItem.vl_preco,
+      total: item.vl_preco,
     };
 
     setCart((prevCart) => [...prevCart, data]);
   }
 
   
-  function removeItemCard(product: CartItemProps) {
+  function removeItemCart(product: CartItemProps) {
     const indexItem = cart.findIndex((item) => item.cd_prato === product.cd_prato);
 
     if (indexItem === -1) return;
@@ -67,9 +71,10 @@ function PratosProvider({ children }: PratosProviderProps) {
     <PratosContext.Provider
       value={{
         cart,
-        addCard,
+        addCart,
         cartAmount,
-        removeItemCard,
+        removeItemCart,
+        clearCart
       }}
     >
       {children}

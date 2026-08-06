@@ -1,5 +1,5 @@
 import * as React from "react";
-import { View, ScrollView, Text } from "react-native";
+import { View, ScrollView } from "react-native";
 import { useEffect, useState} from "react";
 import { PratosProps } from "@/src/interface/pratosInterface";
 import { usePratos } from "@/src/hooks/home_hooks/usePratos.hook";

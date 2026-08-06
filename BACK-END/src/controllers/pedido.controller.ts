@@ -26,7 +26,7 @@ export class PedidoController {
       return res.status(201).json(pedido);
     } catch (error: any) {
       console.error(error);
-      return res.status(500).json({ message: "Erro ao criar pedido", details: error.message });
+      return res.status(500).json({ message: "Erro ao atualizar status do pedido", details: error.message });
     }
   }
 }

@@ -3,7 +3,7 @@ import { View, Text, Image, FlatList, Pressable } from "react-native";
 import { PratosProps } from "@/src/interface/pratosInterface";
 import { router } from "expo-router";
 import { useContext } from "react";
-import { PratosContext } from "@/src/context/pratosContext";
+import { PratosContext } from "@/src/context/pratosContext/pratosContext";
 
 interface SliderProps {
   titulo:string;
@@ -11,12 +11,7 @@ interface SliderProps {
 }
 
 export default function Slider({ titulo, pratos }: SliderProps) {
-  const { addCard }= useContext(PratosContext);
-
-  function handleAddCard(item : PratosProps){
-    addCard(item);
-  }
-
+  const { addCart }= useContext(PratosContext);
 
   return (
     <View className="w-full my-4">
@@ -73,7 +68,7 @@ export default function Slider({ titulo, pratos }: SliderProps) {
 
               <Pressable
                 className="py-2.5 px-3 rounded-[0.8rem] bg-white/80 active:bg-white items-center justify-center"
-                onPress={() => handleAddCard(item)}
+                onPress={() => addCart(item)}
               >
                 <Text className="text-[#151417] font-bold text-center">
                   Adicionar
