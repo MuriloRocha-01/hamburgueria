@@ -66,14 +66,6 @@ export default function Slider({ titulo, pratos }: SliderProps) {
                 R$ {item.vl_preco}
               </Text>
 
-              <Pressable
-                className="py-2.5 px-3 rounded-[0.8rem] bg-white/80 active:bg-white items-center justify-center"
-                onPress={() => addCart(item)}
-              >
-                <Text className="text-[#151417] font-bold text-center">
-                  Adicionar
-                </Text>
-              </Pressable>
             </View>
           </View>
         )}

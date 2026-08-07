@@ -36,7 +36,7 @@ function Card() {
       await postPedido({ cd_mesa: cdMesa }); 
 
       Alert.alert("Sucesso!", "Seu pedido foi enviado para a cozinha.");
-      
+      console.log("Pedido finalizado")
       // Aqui você também pode limpar o carrinho se tiver essa função no context, ex: clearCart()
       setModalVisible(false); 
     } catch (error) {

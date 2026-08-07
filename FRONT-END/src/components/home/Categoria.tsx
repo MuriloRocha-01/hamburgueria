@@ -1,5 +1,5 @@
 import * as React from "react";
-import { View, Text, FlatList, Pressable } from "react-native";
+import { View, Text, Pressable } from "react-native";
 import { Ionicons, FontAwesome5, MaterialCommunityIcons } from "@expo/vector-icons";
 import { router } from "expo-router";
 
@@ -21,12 +21,12 @@ const LISTA_CATEGORIAS: CategoriaProps[] = [
   { id: "6", nome: "Sobremesas", iconName: "ice-cream", iconFamily: "MaterialCommunityIcons" },
 ];
 
-export default function CategoriasSlider() {
+export default function CategoriasGridMap() {
 
   // Função auxiliar para renderizar o pacote de ícone correto
   const renderIcon = (item: CategoriaProps) => {
-    const size = 22;
-    const color = "#FFFFFF"; // Ícones sempre brancos
+    const size = 28;
+    const color = "#000000"; // Ícone preto para destacar no fundo branco/70
 
     switch (item.iconFamily) {
       case "FontAwesome5":
@@ -42,7 +42,7 @@ export default function CategoriasSlider() {
 
   const handleSelectCategoria = (item: CategoriaProps) => {
     router.push({
-      pathname: "/categorias/[cd_categoria]", // Caminho da rota dinâmica
+      pathname: "/categorias/[cd_categoria]",
       params: { 
         id: item.id, 
         nome: item.nome 
@@ -51,30 +51,29 @@ export default function CategoriasSlider() {
   };
 
   return (
-    <View className="w-full">
-      <Text className="text-white font-bold text-2xl pl-9 lg:mb-4 mb-3">
-        Categorias
-      </Text>
+    <View className="w-full px-6 mt-4">
 
-      <FlatList
-        data={LISTA_CATEGORIAS}
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        keyExtractor={(item) => item.id}
-        contentContainerStyle={{ paddingHorizontal: 24 }} 
-        renderItem={({ item }) => (
+      {/* Grid utilizando .map() mantendo 3 colunas em todas as telas */}
+      <View className="flex-row flex-wrap justify-around gap-y-4">
+        {LISTA_CATEGORIAS.map((item) => (
           <Pressable
+            key={item.id}
             onPress={() => handleSelectCategoria(item)}
-            className="flex-row items-center gap-4 px-5 py-3.5 rounded-[1.1rem] mr-3 border bg-white/20 border-white/50 active:bg-white/30"
+            // Mantém sempre 3 colunas (w-[28%]), mas com um limite máximo (max-w-[110px]) para não ficar gigante no tablet
+            className="items-center w-[28%]"
           >
-            {renderIcon(item)}
+            {/* Card quadrado com fundo branco/70, ícone centralizado e altura controlada */}
+            <View className="w-full max-w-[110px] aspect-square bg-white/70 rounded-[1.5rem] items-center justify-center border border-white/50 active:bg-white/90 mb-2">
+              {renderIcon(item)}
+            </View>
 
-            <Text className="text-white font-bold text-sm">
+            {/* Texto fora do card, na parte de baixo, com fonte menor */}
+            <Text className="text-white font-medium text-xs text-center" numberOfLines={1}>
               {item.nome}
             </Text>
           </Pressable>
-        )}
-      />
+        ))}
+      </View>
     </View>
   );
 }
