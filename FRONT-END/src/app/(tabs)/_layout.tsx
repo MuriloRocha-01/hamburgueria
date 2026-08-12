@@ -13,20 +13,15 @@ export default function Layout() {
     <Drawer
       screenOptions={{  
         headerShown: true,
-        // Removido o title global daqui para evitar herança indesejada em todas as páginas
-
         drawerStyle: {
           backgroundColor: "#1e1e1e",
         },
-
         drawerActiveTintColor: "#ffffff",
         drawerInactiveTintColor: "#888888",
-
         headerStyle: {
           backgroundColor: "#1e1e1e",
         },
         headerTintColor: "#ffffff",
-
         headerRight: () => (
           <TouchableOpacity
             onPress={() => router.push("/(tabs)/card")}
@@ -51,7 +46,6 @@ export default function Layout() {
         name="home"
         options={{
           drawerLabel: "Início",
-          // Definindo o título personalizado com a fonte font-spicy apenas para a Home
           headerTitle: () => (
             <Text className="text-white text-xl font-spicy tracking-wider">
               Braza Burguer
@@ -63,6 +57,30 @@ export default function Layout() {
         }}
       />
 
+      {/* Rotas navegáveis, mas escondidas do menu lateral */}
+      <Drawer.Screen
+        name="categorias/[cd_categoria]"
+        options={{
+          drawerItemStyle: { height: 0 },
+          headerTitle: "",
+        }}
+      />
+
+      <Drawer.Screen
+        name="card"
+        options={{
+          drawerItemStyle: { height: 0 },
+          headerTitle: "Carrinho",
+        }}
+      />
+
+      <Drawer.Screen
+        name="product"
+        options={{
+          drawerItemStyle: { height: 0 },
+          headerTitle: "",
+        }}
+      />
     </Drawer>
   );
 }

@@ -1,9 +1,7 @@
 import  axios  from "axios";
 
-const baseURL = "http://localhost:3000";
+const baseURL = "http://192.168.1.106:3000";
 
-
-console.log("Tentando conectar em:", baseURL);
 
 export const api = axios.create({
     baseURL:baseURL,

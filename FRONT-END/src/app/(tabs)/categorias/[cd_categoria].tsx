@@ -6,7 +6,7 @@ import { usePratos } from "@/src/hooks/home_hooks/usePratos.hook";
 import CarregamentoSimples from "@/src/components/spinners";
 
 export default function CategoriaPage() {
-  const { id, nome } = useLocalSearchParams<{ id: string; nome: string }>();
+  const { cd_categoria, nome } = useLocalSearchParams<{ cd_categoria: string; nome: string }>();
   const [pratos, setPratos] = useState<PratosProps[]>([]);
   const [loading, setLoading] = useState(true);
   const { getAllPratos } = usePratos();
@@ -16,9 +16,9 @@ export default function CategoriaPage() {
       setLoading(true);
       try {
         const todosOsPratos = await getAllPratos();
-        
+
         const pratosFiltrados = todosOsPratos.filter(
-        (prato: PratosProps) => String(prato.cd_categoria) === String(id)
+        (prato: PratosProps) => String(prato.cd_categoria) === String(cd_categoria)
         );
 
         setPratos(pratosFiltrados);
@@ -29,10 +29,10 @@ export default function CategoriaPage() {
       }
     }
 
-    if (id) {
+    if (cd_categoria) {
       carregarPratosPorCategoria();
     }
-  }, [id]);
+  }, [cd_categoria]);
 
   if (loading) {
     return (
@@ -59,9 +59,11 @@ export default function CategoriaPage() {
           data={pratos}
           keyExtractor={(item) => String(item.cd_prato)}
           showsVerticalScrollIndicator={false}
+          numColumns={3}
+          columnWrapperStyle={{ justifyContent: "space-between", marginBottom: 12 }}
           renderItem={({ item }) => (
             <Pressable
-              className="bg-white/10 border border-white/20 rounded-2xl p-3 mb-3 flex-row items-center active:opacity-70"
+              className="bg-white/10 border border-white/20 rounded-2xl p-2 items-center w-[31%] active:opacity-70"
               onPress={() =>
                 router.push({
                   pathname: "/product/[cd_prato]",
@@ -69,27 +71,28 @@ export default function CategoriaPage() {
                 })
               }
             >
-              {/* Imagem */}
               <Image
-                source={{ uri: item.ds_imagem_url}}
-                className="w-20 h-20 rounded-xl"
+                source={{ uri: item.ds_imagem_url }}
+                className="w-full aspect-square rounded-xl"
                 resizeMode="cover"
               />
 
-              {/* Informações */}
-              <View className="flex-1 ml-3 justify-center">
-                <Text className="text-white font-bold text-base">
+              <View className="w-full mt-2 items-center">
+                <Text
+                  className="text-white font-bold text-xs text-center"
+                  numberOfLines={1}
+                >
                   {item.nm_prato}
                 </Text>
-                <Text 
-                  numberOfLines={2} 
-                  ellipsizeMode="tail" 
-                  className="text-gray-400 text-xs mt-1"
+                <Text
+                  numberOfLines={2}
+                  ellipsizeMode="tail"
+                  className="text-gray-400 text-[10px] text-center mt-1"
                 >
-                  {item.ds_pratos }
+                  {item.ds_pratos}
                 </Text>
-                <Text className="text-emerald-400 font-semibold text-sm mt-2">
-                  R$ {item.vl_preco }
+                <Text className="text-red-500 font-semibold text-xs mt-2">
+                  R$ {item.vl_preco}
                 </Text>
               </View>
             </Pressable>

@@ -40,15 +40,15 @@ export default function CategoriasGridMap() {
     }
   };
 
-  const handleSelectCategoria = (item: CategoriaProps) => {
-    router.push({
-      pathname: "/categorias/[cd_categoria]",
-      params: { 
-        id: item.id, 
-        nome: item.nome 
-      },
-    });
-  };
+const handleSelectCategoria = (item: CategoriaProps) => {
+  router.push({
+    pathname: "/categorias/[cd_categoria]",
+    params: { 
+      cd_categoria: item.id, 
+      nome: item.nome 
+    },
+  });
+};
 
   return (
     <View className="w-full px-6 mt-4">
@@ -59,15 +59,12 @@ export default function CategoriasGridMap() {
           <Pressable
             key={item.id}
             onPress={() => handleSelectCategoria(item)}
-            // Mantém sempre 3 colunas (w-[28%]), mas com um limite máximo (max-w-[110px]) para não ficar gigante no tablet
             className="items-center w-[28%]"
           >
-            {/* Card quadrado com fundo branco/70, ícone centralizado e altura controlada */}
-            <View className="w-full max-w-[110px] aspect-square bg-white/70 rounded-[1.5rem] items-center justify-center border border-white/50 active:bg-white/90 mb-2">
+            <View className="w-full max-w-[90px] aspect-square bg-white/70 rounded-[1.5rem] items-center justify-center border border-white/50 active:bg-white/90 mb-2">
               {renderIcon(item)}
             </View>
 
-            {/* Texto fora do card, na parte de baixo, com fonte menor */}
             <Text className="text-white font-medium text-xs text-center" numberOfLines={1}>
               {item.nome}
             </Text>
