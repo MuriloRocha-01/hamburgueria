@@ -11,12 +11,12 @@ function PratosProvider({ children }: PratosProviderProps) {
   const [cart, setCart] = useState<CartItemProps[]>([]);
   
   function clearCart(){
-
+ setCart([])
   }
 
 
   function addCart(item: PratosProps) {
-    const indexItem = cart.findIndex(item => item.cd_prato === item.cd_prato);
+    const indexItem = cart.findIndex(cartitem => cartitem.cd_prato === item.cd_prato);
 
     if (indexItem !== -1) {
       const newCart = [...cart];

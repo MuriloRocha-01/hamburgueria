@@ -9,18 +9,18 @@ import {
 } from "react-native";
 import React, { useContext, useState } from "react";
 import { PratosContext } from "@/src/context/pratosContext/pratosContext";
-import { TableContext } from "@/src/context/mesaContext/tableContext"; 
-import { usePedido } from "@/src/hooks/card_hooks/usePedido.hook"; 
+import { TableContext } from "@/src/context/mesaContext/tableContext";
+import { usePedido } from "@/src/hooks/card_hooks/usePedido.hook";
 import { Ionicons } from "@expo/vector-icons";
 
 function Card() {
   const { cart, addCart, removeItemCart, clearCart } = useContext(PratosContext);
-  const { cdMesa } = useContext(TableContext); 
-  const { postPedido } = usePedido(); 
-  
+  const { cdMesa } = useContext(TableContext);
+  const { postPedido } = usePedido();
+
   const [modalVisible, setModalVisible] = useState(false);
   const [loading, setLoading] = useState(false);
-  
+
   const totalCarrinho = cart.reduce((acc, item) => acc + Number(item.total), 0);
 
   const finalizarPedido = async () => {
@@ -32,13 +32,19 @@ function Card() {
 
     try {
       setLoading(true);
-      
-      await postPedido({ cd_mesa: cdMesa }); 
+
+      await postPedido({
+        cd_mesa: cdMesa,
+        itens: cart.map((item) => ({
+          cd_prato: item.cd_prato,
+          quantidade: item.amount,
+        })),
+      });
 
       Alert.alert("Sucesso!", "Seu pedido foi enviado para a cozinha.");
       console.log("Pedido finalizado")
       // Aqui você também pode limpar o carrinho se tiver essa função no context, ex: clearCart()
-      setModalVisible(false); 
+      setModalVisible(false);
     } catch (error) {
       console.error('Erro ao criar pedido:', error);
       Alert.alert("Erro", "Não foi possível finalizar o pedido. Tente novamente.");
