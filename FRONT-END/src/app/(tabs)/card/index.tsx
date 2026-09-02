@@ -5,13 +5,21 @@ import {
   ScrollView,
   TouchableOpacity,
   Modal,
-  Alert,
 } from "react-native";
 import React, { useContext, useState } from "react";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { PratosContext } from "@/src/context/pratosContext/pratosContext";
 import { TableContext } from "@/src/context/mesaContext/tableContext";
 import { usePedido } from "@/src/hooks/card_hooks/usePedido.hook";
 import { Ionicons } from "@expo/vector-icons";
+import { clear } from "node:console";
+
+type FeedbackModal = {
+  visible: boolean;
+  type: "success" | "error";
+  title: string;
+  message: string;
+};
 
 function Card() {
   const { cart, addCart, removeItemCart, clearCart } = useContext(PratosContext);
@@ -20,13 +28,27 @@ function Card() {
 
   const [modalVisible, setModalVisible] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [feedback, setFeedback] = useState<FeedbackModal>({
+    visible: false,
+    type: "success",
+    title: "",
+    message: "",
+  });
 
   const totalCarrinho = cart.reduce((acc, item) => acc + Number(item.total), 0);
 
+  const mostrarFeedback = (type: "success" | "error", title: string, message: string) => {
+    setFeedback({ visible: true, type, title, message });
+  };
+
   const finalizarPedido = async () => {
     if (!cdMesa) {
-      Alert.alert("Erro", "Número da mesa não identificado. Por favor, escaneie o QR Code novamente.");
       setModalVisible(false);
+      mostrarFeedback(
+        "error",
+        "Erro",
+        "Número da mesa não identificado. Por favor, escaneie o QR Code novamente."
+      );
       return;
     }
 
@@ -41,20 +63,21 @@ function Card() {
         })),
       });
 
-      Alert.alert("Sucesso!", "Seu pedido foi enviado para a cozinha.");
-      console.log("Pedido finalizado")
-      // Aqui você também pode limpar o carrinho se tiver essa função no context, ex: clearCart()
       setModalVisible(false);
+      mostrarFeedback("success", "Sucesso!", "Seu pedido foi enviado para a cozinha.");
+      
+      clearCart(); // Limpa o carrinho após finalizar o pedido com sucesso
     } catch (error) {
       console.error('Erro ao criar pedido:', error);
-      Alert.alert("Erro", "Não foi possível finalizar o pedido. Tente novamente.");
+      setModalVisible(false);
+      mostrarFeedback("error", "Erro", "Não foi possível finalizar o pedido. Tente novamente.");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <View className="flex-1 bg-[#151417] p-4">
+    <SafeAreaView edges={["bottom"]} className="flex-1 bg-[#151417] p-4">
       <ScrollView showsVerticalScrollIndicator={false}>
         {cart.length > 0 ? (
           cart.map((item) => (
@@ -125,7 +148,7 @@ function Card() {
           </View>
 
           <View>
-            {/* Botão que aciona a abertura do modal */}
+            {/* Botão que aciona a abertura do modal de confirmação */}
             <TouchableOpacity
               className="bg-white py-3.5 rounded-xl items-center active:opacity-80"
               onPress={() => setModalVisible(true)}
@@ -135,6 +158,7 @@ function Card() {
               </Text>
             </TouchableOpacity>
 
+            {/* Modal de confirmação */}
             <Modal
               animationType="fade"
               transparent={true}
@@ -173,10 +197,49 @@ function Card() {
                 </View>
               </View>
             </Modal>
+
+            {/* Modal de feedback (sucesso/erro) — substitui o Alert.alert, funciona no web também */}
+            <Modal
+              animationType="fade"
+              transparent={true}
+              visible={feedback.visible}
+              onRequestClose={() => setFeedback((prev) => ({ ...prev, visible: false }))}
+            >
+              <View className="flex-1 bg-black/50 justify-center items-center px-6">
+                <View className="bg-white w-full rounded-2xl p-6 items-center shadow-lg">
+                  <View
+                    className={`w-14 h-14 rounded-full items-center justify-center mb-3 ${
+                      feedback.type === "success" ? "bg-emerald-100" : "bg-red-100"
+                    }`}
+                  >
+                    <Ionicons
+                      name={feedback.type === "success" ? "checkmark-circle" : "close-circle"}
+                      size={36}
+                      color={feedback.type === "success" ? "#10b981" : "#ef4444"}
+                    />
+                  </View>
+
+                  <Text className="text-xl font-bold text-[#151417] mb-2">
+                    {feedback.title}
+                  </Text>
+
+                  <Text className="text-gray-600 text-center mb-6">
+                    {feedback.message}
+                  </Text>
+
+                  <TouchableOpacity
+                    className="bg-[#151417] py-3 rounded-xl items-center w-full"
+                    onPress={() => setFeedback((prev) => ({ ...prev, visible: false }))}
+                  >
+                    <Text className="text-white font-bold">Ok</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </Modal>
           </View>
         </View>
       )}
-    </View>
+    </SafeAreaView>
   );
 }
 
