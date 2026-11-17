@@ -14,7 +14,8 @@ interface PostPedidoPayload {
 export const usePedido = () => {
   const postPedido = async (dados: PostPedidoPayload) => {
     try {
-      const response = await api.post("/pedido", dados);
+      // o back-end registra a rota no plural (app.use('/pedidos', ...)); com "/pedido" o pedido recebia 404
+      const response = await api.post("/pedidos", dados);
       return response.data;
     } catch (error) {
       console.error("Erro ao criar pedido:", error);
