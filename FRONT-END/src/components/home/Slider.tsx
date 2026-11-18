@@ -15,7 +15,7 @@ export default function Slider({ titulo, pratos }: SliderProps) {
 
   return (
     <View className="w-full my-4">
-      <Text className="text-white mb-3 px-9 text-2xl font-bold">
+      <Text className="text-tinta mb-3 px-9 text-2xl font-bold">
         {titulo}
       </Text>
 
@@ -26,7 +26,7 @@ export default function Slider({ titulo, pratos }: SliderProps) {
         keyExtractor={(item) => String(item.cd_prato)}
         contentContainerStyle={{ paddingHorizontal: 24 }}
         renderItem={({ item }) => (
-          <View className="border border-white/40 bg-white/20 rounded-[1.3rem] w-64 mr-4 flex-col justify-between">
+          <View className="border border-linha bg-cartao shadow-sm rounded-[1.3rem] w-64 mr-4 flex-col justify-between">
             <Pressable
               className="w-full active:opacity-70"
               onPress={() =>
@@ -46,14 +46,14 @@ export default function Slider({ titulo, pratos }: SliderProps) {
 
               {/* Container com Padding para Nome e Descrição */}
               <View className="px-3 pt-2">
-                <Text className="text-white text-[1.2rem] font-bold">
+                <Text className="text-tinta text-[1.2rem] font-bold">
                   {item.nm_prato}
                 </Text>
 
                 <Text
                   numberOfLines={2}
                   ellipsizeMode="tail"
-                  className="text-white/80 text-sm mt-1 mb-2"
+                  className="text-suave text-sm mt-1 mb-2"
                 >
                   {item.ds_pratos}
                 </Text>
@@ -61,8 +61,8 @@ export default function Slider({ titulo, pratos }: SliderProps) {
             </Pressable>
 
             {/* Bloco Inferior (Preço + Botão Adicionar) */}
-            <View className="w-full flex-row items-center justify-between mt-auto p-3 pt-2 border-t border-white/10">
-              <Text className="flex-1 text-white text-[1.1rem] font-semibold">
+            <View className="w-full flex-row items-center justify-between mt-auto p-3 pt-2 border-t border-linha">
+              <Text className="flex-1 text-vermelho text-[1.1rem] font-bold">
                 R$ {item.vl_preco}
               </Text>
 

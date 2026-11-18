@@ -13,6 +13,7 @@ import { TableContext } from "@/src/context/mesaContext/tableContext";
 import { usePedido } from "@/src/hooks/card_hooks/usePedido.hook";
 import { Ionicons } from "@expo/vector-icons";
 import { clear } from "node:console";
+import cores from "@/src/theme/cores";
 
 type FeedbackModal = {
   visible: boolean;
@@ -77,13 +78,13 @@ function Card() {
   };
 
   return (
-    <SafeAreaView edges={["bottom"]} className="flex-1 bg-[#151417] p-4">
+    <SafeAreaView edges={["bottom"]} className="flex-1 bg-fundo p-4">
       <ScrollView showsVerticalScrollIndicator={false}>
         {cart.length > 0 ? (
           cart.map((item) => (
             <View
               key={item.cd_prato}
-              className="bg-white/10 p-3 rounded-2xl mb-3 flex-row items-center justify-between border border-white/10"
+              className="bg-cartao p-3 rounded-2xl mb-3 flex-row items-center justify-between border border-linha shadow-sm"
             >
               <Image
                 source={{ uri: item.ds_imagem_url }}
@@ -93,45 +94,45 @@ function Card() {
 
               <View className="flex-1 ml-3 justify-center">
                 <Text
-                  className="text-white text-base font-bold"
+                  className="text-tinta text-base font-bold"
                   numberOfLines={1}
                 >
                   {item.nm_prato}
                 </Text>
 
-                <Text className="text-white/60 text-xs my-1">
+                <Text className="text-suave text-xs my-1">
                   R$ {item.vl_preco}
                 </Text>
 
-                <Text className="text-white font-semibold text-sm">
+                <Text className="text-tinta font-semibold text-sm">
                   Subtotal: R$ {Number(item.total || 0).toFixed(2)}
                 </Text>
               </View>
 
-              <View className="flex-row items-center bg-black/30 rounded-xl p-1 border border-white/10 ml-2">
+              <View className="flex-row items-center bg-fundo rounded-xl p-1 border border-linha ml-2">
                 <TouchableOpacity
                   onPress={() => removeItemCart(item)}
-                  className="w-8 h-8 rounded-lg bg-white/10 items-center justify-center active:bg-white/30"
+                  className="w-8 h-8 rounded-lg bg-cartao border border-linha items-center justify-center active:bg-vermelho-claro"
                 >
-                  <Ionicons name="remove-outline" size={18} color="#ffffff" />
+                  <Ionicons name="remove-outline" size={18} color={cores.tinta} />
                 </TouchableOpacity>
 
-                <Text className="text-white font-bold mx-3 text-base">
+                <Text className="text-tinta font-bold mx-3 text-base">
                   {item.amount}
                 </Text>
 
                 <TouchableOpacity
                   onPress={() => addCart(item)}
-                  className="w-8 h-8 rounded-lg bg-white/10 items-center justify-center active:bg-white/30"
+                  className="w-8 h-8 rounded-lg bg-cartao border border-linha items-center justify-center active:bg-vermelho-claro"
                 >
-                  <Ionicons name="add-outline" size={18} color="#ffffff" />
+                  <Ionicons name="add-outline" size={18} color={cores.tinta} />
                 </TouchableOpacity>
               </View>
             </View>
           ))
         ) : (
           <View className="justify-center items-center py-20">
-            <Text className="text-white/90 text-base font-medium">
+            <Text className="text-tinta text-base font-medium">
               Seu carrinho está vazio 🛒
             </Text>
           </View>
@@ -139,10 +140,10 @@ function Card() {
       </ScrollView>
 
       {cart.length > 0 && (
-        <View className="border-t border-white/10 pt-4 mt-auto">
+        <View className="border-t border-linha pt-4 mt-auto">
           <View className="flex-row justify-between items-center mb-4 px-2">
-            <Text className="text-white/80 text-lg">Total do pedido:</Text>
-            <Text className="text-white text-xl font-bold">
+            <Text className="text-suave text-lg">Total do pedido:</Text>
+            <Text className="text-tinta text-xl font-bold">
               R$ {Number(totalCarrinho || 0).toFixed(2)}
             </Text>
           </View>
@@ -150,10 +151,10 @@ function Card() {
           <View>
             {/* Botão que aciona a abertura do modal de confirmação */}
             <TouchableOpacity
-              className="bg-white py-3.5 rounded-xl items-center active:opacity-80"
+              className="bg-vermelho py-3.5 rounded-xl items-center active:opacity-80"
               onPress={() => setModalVisible(true)}
             >
-              <Text className="text-[#151417] font-bold text-base">
+              <Text className="text-white font-bold text-base">
                 Finalizar Pedido
               </Text>
             </TouchableOpacity>
@@ -167,7 +168,7 @@ function Card() {
             >
               <View className="flex-1 bg-black/50 justify-center items-center px-6">
                 <View className="bg-white w-full rounded-2xl p-6 items-center shadow-lg">
-                  <Text className="text-xl font-bold text-[#151417] mb-2">
+                  <Text className="text-xl font-bold text-tinta mb-2">
                     Confirmar Pedido
                   </Text>
 
@@ -185,7 +186,7 @@ function Card() {
                     </TouchableOpacity>
 
                     <TouchableOpacity
-                      className="flex-1 bg-[#151417] py-3 rounded-xl items-center"
+                      className="flex-1 bg-vermelho py-3 rounded-xl items-center"
                       onPress={finalizarPedido}
                       disabled={loading}
                     >
@@ -219,7 +220,7 @@ function Card() {
                     />
                   </View>
 
-                  <Text className="text-xl font-bold text-[#151417] mb-2">
+                  <Text className="text-xl font-bold text-tinta mb-2">
                     {feedback.title}
                   </Text>
 
@@ -228,7 +229,7 @@ function Card() {
                   </Text>
 
                   <TouchableOpacity
-                    className="bg-[#151417] py-3 rounded-xl items-center w-full"
+                    className="bg-vermelho py-3 rounded-xl items-center w-full"
                     onPress={() => setFeedback((prev) => ({ ...prev, visible: false }))}
                   >
                     <Text className="text-white font-bold">Ok</Text>

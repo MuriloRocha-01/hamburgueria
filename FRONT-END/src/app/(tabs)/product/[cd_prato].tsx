@@ -50,8 +50,8 @@ function Product() {
 
   if (!prato) {
     return (
-      <View className="flex-1 bg-[#151417] items-center justify-center p-4">
-        <Text className="text-white text-lg font-bold">
+      <View className="flex-1 bg-fundo items-center justify-center p-4">
+        <Text className="text-tinta text-lg font-bold">
           Lanche não encontrado!
         </Text>
       </View>
@@ -59,7 +59,7 @@ function Product() {
   }
 
   return (
-    <ScrollView className="bg-[#151417] flex-1">
+    <ScrollView className="bg-fundo flex-1">
       <Image
         source={{
           uri: prato.ds_imagem_url ,
@@ -68,22 +68,22 @@ function Product() {
       />
 
       <View className="p-3 gap-4">
-        <Text className="text-white text-2xl font-bold">{prato.nm_prato}</Text>
+        <Text className="text-tinta text-2xl font-bold">{prato.nm_prato}</Text>
         
         <View className="gap-1 mt-2">
-          <Text className="text-gray-400 font-semibold text-sm">Descrição</Text>
-          <Text className="text-gray-300 text-base leading-relaxed">
+          <Text className="text-suave font-semibold text-sm">Descrição</Text>
+          <Text className="text-tinta/80 text-base leading-relaxed">
             {prato.ds_pratos}
           </Text>
         </View>
 
-        <Text className="text-red-500 text-xl font-semibold">
+        <Text className="text-vermelho text-xl font-bold">
           R$ {prato.vl_preco}
         </Text>
 
         <View className="mt-4">
           {itemNoCarrinho ? (
-            <View className="flex-row items-center justify-between bg-red-500 py-2 px-4 rounded-xl shadow-lg">
+            <View className="flex-row items-center justify-between bg-vermelho py-2 px-4 rounded-xl shadow-lg">
               <TouchableOpacity
                 activeOpacity={0.7}
                 onPress={() => removeItemCart(itemNoCarrinho)}
@@ -109,7 +109,7 @@ function Product() {
           ) : (
             <TouchableOpacity
               activeOpacity={0.8}
-              className="bg-red-500 py-4 rounded-xl items-center shadow-lg"
+              className="bg-vermelho py-4 rounded-xl items-center shadow-lg"
               onPress={() => addCart(prato)}
             >
               <Text className="text-white font-bold text-base">

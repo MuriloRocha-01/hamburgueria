@@ -4,6 +4,7 @@ import { TouchableOpacity, Text, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import React, { useContext } from "react";
 import { PratosContext } from "@/src/context/pratosContext/pratosContext";
+import cores from "@/src/theme/cores";
 
 export default function Layout() {
   const router = useRouter();
@@ -13,15 +14,17 @@ export default function Layout() {
     <Drawer
       screenOptions={{  
         headerShown: true,
+        sceneStyle: { backgroundColor: cores.fundo },
         drawerStyle: {
-          backgroundColor: "#1e1e1e",
+          backgroundColor: cores.cartao,
         },
-        drawerActiveTintColor: "#ffffff",
-        drawerInactiveTintColor: "#888888",
+        drawerActiveTintColor: cores.vermelho.DEFAULT,
+        drawerActiveBackgroundColor: cores.vermelho.claro,
+        drawerInactiveTintColor: cores.suave,
         headerStyle: {
-          backgroundColor: "#1e1e1e",
+          backgroundColor: cores.cartao,
         },
-        headerTintColor: "#ffffff",
+        headerTintColor: cores.tinta,
         headerRight: () => (
           <TouchableOpacity
             onPress={() => router.push("/(tabs)/card")}
@@ -29,9 +32,9 @@ export default function Layout() {
             className="flex-row items-center justify-center p-2"
           >
             <View className="relative">
-              <Ionicons name="cart-outline" size={26} color="#ffffff" />
+              <Ionicons name="cart-outline" size={26} color={cores.tinta} />
               {cartAmount > 0 && (
-                <View className="absolute -top-1 -right-2 bg-red-500 rounded-full w-5 h-5 justify-center items-center">
+                <View className="absolute -top-1 -right-2 bg-vermelho rounded-full w-5 h-5 justify-center items-center">
                   <Text className="text-white text-xs font-bold">
                     {cartAmount}
                   </Text>
@@ -47,7 +50,7 @@ export default function Layout() {
         options={{
           drawerLabel: "Início",
           headerTitle: () => (
-            <Text className="text-white text-xl font-spicy tracking-wider">
+            <Text className="text-vermelho text-xl font-spicy tracking-wider">
               Braza Burguer
             </Text>
           ),

@@ -3,6 +3,8 @@ import { Image, View, Text, TouchableOpacity, useWindowDimensions } from "react-
 import Carousel from "react-native-reanimated-carousel";
 import maocomlanche from '../../../assets/especial_da_casa.png';
 import { router } from "expo-router";
+import { LinearGradient } from "expo-linear-gradient";
+import cores from "@/src/theme/cores";
 
 export default function HomePublic() {
   const listaImagens = [
@@ -14,8 +16,11 @@ export default function HomePublic() {
   return (
     <View className="flex-1 w-full justify-between items-center py-16 px-4 relative">
       
-      <View className="absolute inset-0 bg-[#FFFFFF] -z-10">
-        <View className="w-full h-[50%] bg-[#ff0016] lg:rounded-b-[400px] rounded-b-[150px]" />
+      <View className="absolute inset-0 bg-fundo -z-10">
+        {/* bloco vermelho em degradê; o overflow-hidden deixa a curva de baixo arredondar o degradê */}
+        <View className="w-full h-[50%] lg:rounded-b-[400px] rounded-b-[150px] overflow-hidden">
+          <LinearGradient colors={[cores.vermelho.DEFAULT, cores.vermelho.escuro]} style={{ flex: 1 }} />
+        </View>
       </View>
 
       <View className="items-center mt-4">
@@ -56,7 +61,7 @@ export default function HomePublic() {
       </View>
       
       <TouchableOpacity 
-        className="px-8 bg-[#E5160B] rounded-[1.2rem] py-5 w-full max-w-xs shadow-md"  
+        className="px-8 bg-vermelho rounded-[1.2rem] py-5 w-full max-w-xs shadow-md"  
         onPress={() => router.push('/(public)/QrScannerScreen')}
       >
         <Text className="md:text-[1rem] text-[1.2rem] font-bold text-white text-center">

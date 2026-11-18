@@ -12,6 +12,7 @@ import { CameraView, useCameraPermissions } from "expo-camera";
 import { Ionicons } from "@expo/vector-icons";
 import { TableContext } from "../../context/mesaContext/tableContext";
 import { router } from "expo-router";
+import cores from "@/src/theme/cores";
 
 export default function QrScannerScreen({ navigation }: any) {
   const [permission, requestPermission] = useCameraPermissions();
@@ -81,21 +82,21 @@ export default function QrScannerScreen({ navigation }: any) {
 
   if (isManual) {
     return (
-      <View className="flex-1 bg-[#151417] justify-center px-6">
+      <View className="flex-1 bg-fundo justify-center px-6">
         {aviso}
-        <View className="bg-white/10 p-6 rounded-2xl w-full border border-white/10">
-          <Text className="text-white text-2xl font-bold text-center mb-2">
+        <View className="bg-cartao p-6 rounded-2xl w-full border border-linha shadow-sm">
+          <Text className="text-tinta text-2xl font-bold text-center mb-2">
             Digite o Número
           </Text>
-          <Text className="text-gray-400 text-sm text-center mb-6">
+          <Text className="text-suave text-sm text-center mb-6">
             Insira o número da mesa onde você está sentado
           </Text>
 
-          <View className="flex-row items-center bg-white/20 rounded-xl px-4 py-3 mb-4">
+          <View className="flex-row items-center bg-fundo border border-linha rounded-xl px-4 py-3 mb-4">
             <TextInput
-              className="flex-1 text-white text-base"
+              className="flex-1 text-tinta text-base"
               placeholder="Número da mesa"
-              placeholderTextColor="#9ca3af"
+              placeholderTextColor={cores.suave}
               keyboardType="numeric"
               value={inputMesa}
               onChangeText={(texto) => {
@@ -109,10 +110,10 @@ export default function QrScannerScreen({ navigation }: any) {
 
 
           <TouchableOpacity
-            className="bg-white py-3.5 rounded-xl items-center active:opacity-80 mb-3"
+            className="bg-vermelho py-3.5 rounded-xl items-center active:opacity-80 mb-3"
             onPress={handleManualSubmit}
           >
-            <Text className="text-[#151417] font-bold text-base">
+            <Text className="text-white font-bold text-base">
               Confirmar Mesa
             </Text>
           </TouchableOpacity>
@@ -121,7 +122,7 @@ export default function QrScannerScreen({ navigation }: any) {
             className="py-3 items-center active:opacity-80"
             onPress={() => setIsManual(false)}
           >
-            <Text className="text-gray-300 font-semibold text-sm">
+            <Text className="text-suave font-semibold text-sm">
               Voltar para Câmera (QR Code)
             </Text>
           </TouchableOpacity>
@@ -132,49 +133,49 @@ export default function QrScannerScreen({ navigation }: any) {
 
   // Se precisar de permissão da câmera
   if (!permission) {
-    return <View className="flex-1 bg-[#151417]" />;
+    return <View className="flex-1 bg-fundo" />;
   }
 
   if (!permission.granted) {
     return (
-      <View className="flex-1 justify-center items-center bg-[#151417] px-6">
+      <View className="flex-1 justify-center items-center bg-fundo px-6">
         <Ionicons
           name="camera-outline"
           size={64}
-          color="#9ca3af"
+          color={cores.suave}
           className="mb-4"
         />
-        <Text className="text-white text-lg font-bold text-center mb-2">
+        <Text className="text-tinta text-lg font-bold text-center mb-2">
           Permissão de Câmera Necessária
         </Text>
-        <Text className="text-gray-400 text-center mb-6">
+        <Text className="text-suave text-center mb-6">
           Precisamos acessar sua câmera para escanear o QR Code da mesa ou você
           pode inserir manualmente.
         </Text>
 
         <TouchableOpacity
-          className="bg-white py-3.5 px-6 rounded-xl items-center active:opacity-80 w-full mb-3"
+          className="bg-vermelho py-3.5 px-6 rounded-xl items-center active:opacity-80 w-full mb-3"
           onPress={requestPermission}
         >
-          <Text className="text-[#151417] font-bold text-base">
+          <Text className="text-white font-bold text-base">
             Conceder Permissão
           </Text>
         </TouchableOpacity>
 
         <TouchableOpacity
-          className="bg-white/20 py-3.5 px-6 rounded-xl items-center active:opacity-80 w-full"
+          className="bg-cartao border border-linha py-3.5 px-6 rounded-xl items-center active:opacity-80 w-full"
           onPress={() => setIsManual(true)}
         >
-          <Text className="text-white font-bold text-base">
+          <Text className="text-tinta font-bold text-base">
             Digitar Número Manualmente
           </Text>
         </TouchableOpacity>
 
         <TouchableOpacity
-          className="bg-white py-3.5 px-6 rounded-xl items-center active:opacity-80 w-full mb-3"
+          className="bg-cartao border border-linha py-3.5 px-6 rounded-xl items-center active:opacity-80 w-full mb-3"
           onPress={() => {router.replace("/(tabs)/home")}}
         >
-          <Text className="text-[#151417] font-bold text-base">
+          <Text className="text-tinta font-bold text-base">
             Liberar
           </Text>
         </TouchableOpacity>

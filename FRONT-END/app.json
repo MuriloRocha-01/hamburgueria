@@ -6,7 +6,7 @@
     "orientation": "portrait",
     "icon": "./assets/brasa-icon.png",
     "scheme": "cardapio",
-    "userInterfaceStyle": "automatic",
+    "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true

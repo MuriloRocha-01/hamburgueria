@@ -1,44 +1,29 @@
 import * as React from "react";
-import { View, Text, Pressable } from "react-native";
-import { Ionicons, FontAwesome5, MaterialCommunityIcons } from "@expo/vector-icons";
+import { View, Text, Pressable, Image, ImageSourcePropType } from "react-native";
 import { router } from "expo-router";
 
 // 1. Tipagem das categorias
 export interface CategoriaProps {
   id: string;
   nome: string;
-  iconName: string;
-  iconFamily: "FontAwesome5" | "MaterialCommunityIcons" | "Ionicons";
+  icone: ImageSourcePropType;
 }
 
-// 2. Lista com os ícones da hamburgueria
+// 2. Lista com os ícones coloridos da hamburgueria (PNG com fundo transparente em assets/categorias)
 const LISTA_CATEGORIAS: CategoriaProps[] = [
-  { id: "1", nome: "Combos", iconName: "food-takeout-box", iconFamily: "MaterialCommunityIcons" },
-  { id: "2", nome: "Hambúrgueres Artesanais", iconName: "hamburger", iconFamily: "MaterialCommunityIcons" },
-  { id: "3", nome: "Smash Burguers", iconName: "grill", iconFamily: "MaterialCommunityIcons" },
-  { id: "4", nome: "Acompanhamentos", iconName: "french-fries", iconFamily: "MaterialCommunityIcons" },
-  { id: "5", nome: "Bebidas", iconName: "bottle-soda", iconFamily: "MaterialCommunityIcons" },
-  { id: "6", nome: "Sobremesas", iconName: "ice-cream", iconFamily: "MaterialCommunityIcons" },
+  { id: "1", nome: "Combos", icone: require("@/assets/categorias/combos.png") },
+  { id: "2", nome: "Hambúrgueres Artesanais", icone: require("@/assets/categorias/hamburgueres.png") },
+  { id: "3", nome: "Smash Burguers", icone: require("@/assets/categorias/smash.png") },
+  { id: "4", nome: "Acompanhamentos", icone: require("@/assets/categorias/acompanhamentos.png") },
+  { id: "5", nome: "Bebidas", icone: require("@/assets/categorias/bebidas.png") },
+  { id: "6", nome: "Sobremesas", icone: require("@/assets/categorias/sobremesas.png") },
 ];
 
 export default function CategoriasGridMap() {
 
-  // Função auxiliar para renderizar o pacote de ícone correto
-  const renderIcon = (item: CategoriaProps) => {
-    const size = 28;
-    const color = "#000000"; // Ícone preto para destacar no fundo branco/70
-
-    switch (item.iconFamily) {
-      case "FontAwesome5":
-        return <FontAwesome5 name={item.iconName as any} size={size} color={color} />;
-      case "MaterialCommunityIcons":
-        return <MaterialCommunityIcons name={item.iconName as any} size={size} color={color} />;
-      case "Ionicons":
-        return <Ionicons name={item.iconName as any} size={size} color={color} />;
-      default:
-        return null;
-    }
-  };
+  const renderIcon = (item: CategoriaProps) => (
+    <Image source={item.icone} style={{ width: "72%", height: "72%" }} resizeMode="contain" />
+  );
 
 const handleSelectCategoria = (item: CategoriaProps) => {
   router.push({
@@ -61,11 +46,11 @@ const handleSelectCategoria = (item: CategoriaProps) => {
             onPress={() => handleSelectCategoria(item)}
             className="items-center w-[28%]"
           >
-            <View className="w-full max-w-[90px] aspect-square bg-white/70 rounded-[1.5rem] items-center justify-center border border-white/50 active:bg-white/90 mb-2">
+            <View className="w-full max-w-[90px] aspect-square bg-cartao rounded-[1.5rem] items-center justify-center border border-linha shadow-sm active:bg-vermelho-claro mb-2">
               {renderIcon(item)}
             </View>
 
-            <Text className="text-white font-medium text-xs text-center" numberOfLines={1}>
+            <Text className="text-tinta font-medium text-xs text-center" numberOfLines={1}>
               {item.nome}
             </Text>
           </Pressable>

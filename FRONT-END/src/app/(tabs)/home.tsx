@@ -30,7 +30,7 @@ export default function ListaCubinhosRetos() {
 
 
   return (
-    <ScrollView className="bg-[#151417] ">
+    <ScrollView className="bg-fundo">
       <View className="flex-1 pb-6">
         {loading ? (
           <CarregamentoSimples />
