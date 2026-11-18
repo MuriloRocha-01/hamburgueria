@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Alert,
   TextInput,
+  Platform,
 } from "react-native";
 import { CameraView, useCameraPermissions } from "expo-camera";
 import { Ionicons } from "@expo/vector-icons";
@@ -19,16 +20,42 @@ export default function QrScannerScreen({ navigation }: any) {
   const [inputMesa, setInputMesa] = useState("");
   const { setCdMesa } = useContext(TableContext);
 
+  const [erroMesa, setErroMesa] = useState("");
+  const [avisoMesa, setAvisoMesa] = useState("");
+
+  // Aviso na tela (funciona no PC e no celular): verde = sucesso, vermelho = erro
+  const aviso =
+    avisoMesa || erroMesa ? (
+      <View
+        className={`absolute top-6 left-6 right-6 z-50 rounded-xl px-4 py-3 ${
+          erroMesa ? "bg-red-600" : "bg-emerald-600"
+        }`}
+      >
+        <Text className="text-white font-bold text-center">{erroMesa || avisoMesa}</Text>
+      </View>
+    ) : null;
+
   const salvarMesa = (numeroMesa: number) => {
-    if (!numeroMesa || numeroMesa <= 0) {
-      Alert.alert(
-        "Mesa Inválida",
-        "Por favor, informe um número de mesa válido.",
-      );
+    // Number("") dá 0 e Number("abc") dá NaN; mesa precisa ser inteiro positivo
+    if (!Number.isInteger(numeroMesa) || numeroMesa <= 0) {
+      const mensagem = "Por favor, informe um número de mesa válido.";
+      setErroMesa(mensagem);
+      setScanned(false); // deixa o QR Code ser lido de novo
+      // Alert.alert não existe na web; lá o erro aparece na própria tela
+      if (Platform.OS !== "web") Alert.alert("Mesa Inválida", mensagem);
       return;
     }
 
+    setErroMesa("");
     setCdMesa(numeroMesa);
+
+    // Alert.alert não aparece na web, então o botão "Ver Cardápio" nunca podia ser tocado:
+    // na web mostra o aviso na tela e entra sozinho; no celular mantém o Alert de confirmação.
+    if (Platform.OS === "web") {
+      setAvisoMesa(`Mesa ${numeroMesa} identificada! Abrindo o cardápio...`);
+      setTimeout(() => router.replace("/(tabs)/home"), 1200);
+      return;
+    }
     Alert.alert("Mesa Identificada!", `Conectado à Mesa ${numeroMesa}`, [
       {
         text: "Ver Cardápio",
@@ -55,6 +82,7 @@ export default function QrScannerScreen({ navigation }: any) {
   if (isManual) {
     return (
       <View className="flex-1 bg-[#151417] justify-center px-6">
+        {aviso}
         <View className="bg-white/10 p-6 rounded-2xl w-full border border-white/10">
           <Text className="text-white text-2xl font-bold text-center mb-2">
             Digite o Número
@@ -70,10 +98,15 @@ export default function QrScannerScreen({ navigation }: any) {
               placeholderTextColor="#9ca3af"
               keyboardType="numeric"
               value={inputMesa}
-              onChangeText={setInputMesa}
+              onChangeText={(texto) => {
+                setInputMesa(texto);
+                if (erroMesa) setErroMesa("");
+              }}
+              onSubmitEditing={handleManualSubmit}
               autoFocus
             />
           </View>
+
 
           <TouchableOpacity
             className="bg-white py-3.5 rounded-xl items-center active:opacity-80 mb-3"
@@ -208,6 +241,7 @@ export default function QrScannerScreen({ navigation }: any) {
           </View>
         </View>
       </CameraView>
+      {aviso}
     </View>
   );
 }
