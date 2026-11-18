@@ -13,14 +13,16 @@
 </p>
 
 <p align="center">
-  <img src="docs/telas/cardapio.png" alt="Cardápio do app" width="260" />
-  &nbsp;&nbsp;
-  <img src="docs/telas/prato.png" alt="Detalhe de um prato" width="260" />
-  &nbsp;&nbsp;
-  <img src="docs/telas/confirmar-pedido.png" alt="Confirmação do pedido da mesa" width="260" />
+  <img src="docs/capa.jpg" alt="Hamburgueria: cardápio por QR Code" width="900" />
 </p>
 
-<p align="center"><sub>Capturas feitas com uma API de teste e pratos fictícios.</sub></p>
+<p align="center">
+  <img src="docs/telas/cardapio.jpg" alt="Cardápio do app" width="190" />
+  <img src="docs/telas/categoria.jpg" alt="Pratos de uma categoria" width="190" />
+  <img src="docs/telas/prato.jpg" alt="Detalhe de um prato" width="190" />
+  <img src="docs/telas/carrinho.jpg" alt="Carrinho" width="190" />
+  <img src="docs/telas/confirmar-pedido.jpg" alt="Confirmação do pedido da mesa" width="190" />
+</p>
 
 ---
 
