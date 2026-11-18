@@ -13,10 +13,10 @@ export interface CategoriaProps {
 
 // 2. Lista com os ícones da hamburgueria
 const LISTA_CATEGORIAS: CategoriaProps[] = [
-  { id: "1", nome: "Combos", iconName: "flame-outline", iconFamily: "Ionicons" },
-  { id: "2", nome: "Hambúrgueres Artesanais", iconName: "french-fries", iconFamily: "MaterialCommunityIcons" },
-  { id: "3", nome: "Smash Burguers", iconName: "hamburger", iconFamily: "FontAwesome5" },
-  { id: "4", nome: "Acompanhamentos", iconName: "flame-outline", iconFamily: "Ionicons" },
+  { id: "1", nome: "Combos", iconName: "food-takeout-box", iconFamily: "MaterialCommunityIcons" },
+  { id: "2", nome: "Hambúrgueres Artesanais", iconName: "hamburger", iconFamily: "MaterialCommunityIcons" },
+  { id: "3", nome: "Smash Burguers", iconName: "grill", iconFamily: "MaterialCommunityIcons" },
+  { id: "4", nome: "Acompanhamentos", iconName: "french-fries", iconFamily: "MaterialCommunityIcons" },
   { id: "5", nome: "Bebidas", iconName: "bottle-soda", iconFamily: "MaterialCommunityIcons" },
   { id: "6", nome: "Sobremesas", iconName: "ice-cream", iconFamily: "MaterialCommunityIcons" },
 ];

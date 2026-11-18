@@ -57,28 +57,30 @@ export default function Layout() {
         }}
       />
 
-      {/* Rotas navegáveis, mas escondidas do menu lateral */}
+      {/* Rotas navegáveis, mas escondidas do menu lateral.
+          O name precisa ser o caminho real da tela (pasta/arquivo); com só "card" ou "product"
+          o menu não encontrava a tela e mostrava o nome interno da rota. */}
       <Drawer.Screen
         name="categorias/[cd_categoria]"
-        options={{
-          drawerItemStyle: { height: 0 },
-          headerTitle: "",
-        }}
+        options={({ route }) => ({
+          drawerItemStyle: { display: "none" },
+          headerTitle: String((route.params as { nome?: string } | undefined)?.nome ?? "Categoria"),
+        })}
       />
 
       <Drawer.Screen
-        name="card"
+        name="card/index"
         options={{
-          drawerItemStyle: { height: 0 },
+          drawerItemStyle: { display: "none" },
           headerTitle: "Carrinho",
         }}
       />
 
       <Drawer.Screen
-        name="product"
+        name="product/[cd_prato]"
         options={{
-          drawerItemStyle: { height: 0 },
-          headerTitle: "",
+          drawerItemStyle: { display: "none" },
+          headerTitle: "Prato",
         }}
       />
     </Drawer>
