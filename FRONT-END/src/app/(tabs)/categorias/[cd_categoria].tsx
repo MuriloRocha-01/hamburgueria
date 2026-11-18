@@ -35,11 +35,7 @@ export default function CategoriaPage() {
   }, [cd_categoria]);
 
   if (loading) {
-    return (
-      <View className="flex-1 items-center justify-center">
-        <CarregamentoSimples />
-      </View>
-    );
+    return <CarregamentoSimples />;
   }
 
   return (

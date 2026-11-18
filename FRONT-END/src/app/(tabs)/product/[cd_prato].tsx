@@ -45,11 +45,7 @@ function Product() {
   }, [id]);
 
   if (loading) {
-    return (
-      <View className="flex-1 bg-[#151417] items-center justify-center">
-        <CarregamentoSimples />
-      </View>
-    );
+    return <CarregamentoSimples />;
   }
 
   if (!prato) {
