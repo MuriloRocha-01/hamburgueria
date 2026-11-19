@@ -7,7 +7,7 @@ import {
   Modal,
 } from "react-native";
 import React, { useContext, useState } from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { PratosContext } from "@/src/context/pratosContext/pratosContext";
 import { TableContext } from "@/src/context/mesaContext/tableContext";
 import { usePedido } from "@/src/hooks/card_hooks/usePedido.hook";
@@ -23,6 +23,8 @@ type FeedbackModal = {
 };
 
 function Card() {
+  // área segura do aparelho (barra de gestos, cantos): o botão de finalizar nunca fica colado na borda da tela
+  const insets = useSafeAreaInsets();
   const { cart, addCart, removeItemCart, clearCart } = useContext(PratosContext);
   const { cdMesa } = useContext(TableContext);
   const { postPedido } = usePedido();
@@ -78,7 +80,7 @@ function Card() {
   };
 
   return (
-    <SafeAreaView edges={["bottom"]} className="flex-1 bg-fundo p-4">
+    <View className="flex-1 bg-fundo p-4" style={{ paddingBottom: Math.max(insets.bottom, 16) }}>
       <ScrollView showsVerticalScrollIndicator={false}>
         {cart.length > 0 ? (
           cart.map((item) => (
@@ -240,7 +242,7 @@ function Card() {
           </View>
         </View>
       )}
-    </SafeAreaView>
+    </View>
   );
 }
 
