@@ -1,11 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, FlatList, Image, Pressable } from "react-native";
+import { View, Text, FlatList, Image, Pressable, useWindowDimensions } from "react-native";
 import { useLocalSearchParams, router } from "expo-router";
 import { PratosProps } from "@/src/interface/pratosInterface";
 import { usePratos } from "@/src/hooks/home_hooks/usePratos.hook";
 import CarregamentoSimples from "@/src/components/spinners";
 
+// largura do menu lateral fixo (telas largas); precisa ser igual à de (tabs)/_layout.tsx
+const LARGURA_MENU = 280;
+
 export default function CategoriaPage() {
+  const { width } = useWindowDimensions();
+  // quanto mais espaço, mais colunas de pratos (3 no celular)
+  const areaUtil = width >= 768 ? width - LARGURA_MENU : width;
+  const colunas = areaUtil >= 1000 ? 5 : areaUtil >= 700 ? 4 : 3;
   const { cd_categoria, nome } = useLocalSearchParams<{ cd_categoria: string; nome: string }>();
   const [pratos, setPratos] = useState<PratosProps[]>([]);
   const [loading, setLoading] = useState(true);
@@ -55,11 +62,13 @@ export default function CategoriaPage() {
           data={pratos}
           keyExtractor={(item) => String(item.cd_prato)}
           showsVerticalScrollIndicator={false}
-          numColumns={3}
-          columnWrapperStyle={{ justifyContent: "space-between", marginBottom: 12 }}
+          key={colunas} // trocar o número de colunas exige recriar a lista
+          numColumns={colunas}
           renderItem={({ item }) => (
+            // cada prato ocupa uma fatia igual da linha, com folga por fora: a última linha não "estica" nem deixa buraco
+            <View style={{ width: `${100 / colunas}%`, padding: 6 }}>
             <Pressable
-              className="bg-cartao border border-linha shadow-sm rounded-2xl p-2 items-center w-[31%] active:opacity-70"
+              className="bg-cartao border border-linha shadow-sm rounded-2xl p-2 items-center w-full active:opacity-70"
               onPress={() =>
                 router.push({
                   pathname: "/product/[cd_prato]",
@@ -83,7 +92,7 @@ export default function CategoriaPage() {
                 <Text
                   numberOfLines={2}
                   ellipsizeMode="tail"
-                  className="text-suave text-[10px] text-center mt-1"
+                  className="text-suave text-[10px] leading-[14px] h-7 text-center mt-1"
                 >
                   {item.ds_pratos}
                 </Text>
@@ -92,6 +101,7 @@ export default function CategoriaPage() {
                 </Text>
               </View>
             </Pressable>
+            </View>
           )}
         />
       )}

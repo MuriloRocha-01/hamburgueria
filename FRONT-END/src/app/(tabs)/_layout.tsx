@@ -1,22 +1,34 @@
 import { Drawer } from "expo-router/drawer";
 import { useRouter } from "expo-router";
-import { TouchableOpacity, Text, View } from "react-native";
+import { TouchableOpacity, Text, View, useWindowDimensions } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import React, { useContext } from "react";
 import { PratosContext } from "@/src/context/pratosContext/pratosContext";
 import cores from "@/src/theme/cores";
+import CategoriasMenu from "@/src/components/layout/CategoriasMenu";
+
+// a partir desta largura (px) o menu de categorias fica fixo ao lado; abaixo, é uma aba que abre e fecha
+const LARGURA_MENU_FIXO = 768;
 
 export default function Layout() {
   const router = useRouter();
   const { cartAmount } = useContext(PratosContext);
+  const { width } = useWindowDimensions();
+  const menuFixo = width >= LARGURA_MENU_FIXO;
 
   return (
     <Drawer
+      drawerContent={(props) => <CategoriasMenu {...props} />}
       screenOptions={{  
         headerShown: true,
+        drawerType: menuFixo ? "permanent" : "front",
+        // com o menu fixo não há o que abrir: esconde o botão ☰ do cabeçalho
+        headerLeft: menuFixo ? () => null : undefined,
         sceneStyle: { backgroundColor: cores.fundo },
         drawerStyle: {
           backgroundColor: cores.cartao,
+          width: menuFixo ? 280 : 300,
+          borderRightColor: cores.linha,
         },
         drawerActiveTintColor: cores.vermelho.DEFAULT,
         drawerActiveBackgroundColor: cores.vermelho.claro,

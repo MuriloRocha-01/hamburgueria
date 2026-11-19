@@ -1,23 +1,7 @@
 import * as React from "react";
-import { View, Text, Pressable, Image, ImageSourcePropType } from "react-native";
+import { View, Text, Pressable, Image } from "react-native";
 import { router } from "expo-router";
-
-// 1. Tipagem das categorias
-export interface CategoriaProps {
-  id: string;
-  nome: string;
-  icone: ImageSourcePropType;
-}
-
-// 2. Lista com os ícones coloridos da hamburgueria (PNG com fundo transparente em assets/categorias)
-const LISTA_CATEGORIAS: CategoriaProps[] = [
-  { id: "1", nome: "Combos", icone: require("@/assets/categorias/combos.png") },
-  { id: "2", nome: "Hambúrgueres Artesanais", icone: require("@/assets/categorias/hamburgueres.png") },
-  { id: "3", nome: "Smash Burguers", icone: require("@/assets/categorias/smash.png") },
-  { id: "4", nome: "Acompanhamentos", icone: require("@/assets/categorias/acompanhamentos.png") },
-  { id: "5", nome: "Bebidas", icone: require("@/assets/categorias/bebidas.png") },
-  { id: "6", nome: "Sobremesas", icone: require("@/assets/categorias/sobremesas.png") },
-];
+import { CATEGORIAS, type CategoriaProps } from "@/src/data/categorias";
 
 export default function CategoriasGridMap() {
 
@@ -35,12 +19,13 @@ const handleSelectCategoria = (item: CategoriaProps) => {
   });
 };
 
+  // em telas largas o menu lateral fixo já lista as categorias, então esta grade só aparece no celular (md:hidden)
   return (
-    <View className="w-full px-6 mt-4">
+    <View className="w-full px-6 mt-4 md:hidden">
 
       {/* Grid utilizando .map() mantendo 3 colunas em todas as telas */}
       <View className="flex-row flex-wrap justify-around gap-y-4">
-        {LISTA_CATEGORIAS.map((item) => (
+        {CATEGORIAS.map((item) => (
           <Pressable
             key={item.id}
             onPress={() => handleSelectCategoria(item)}
