@@ -46,14 +46,14 @@ export default function Slider({ titulo, pratos }: SliderProps) {
 
               {/* Container com Padding para Nome e Descrição */}
               <View className="px-3 pt-2">
-                <Text className="text-tinta text-[1.2rem] font-bold">
+                <Text numberOfLines={1} className="text-tinta text-[1.2rem] font-bold">
                   {item.nm_prato}
                 </Text>
 
                 <Text
                   numberOfLines={2}
                   ellipsizeMode="tail"
-                  className="text-suave text-sm mt-1 mb-2"
+                  className="text-suave text-sm leading-5 h-10 mt-1 mb-2"
                 >
                   {item.ds_pratos}
                 </Text>
